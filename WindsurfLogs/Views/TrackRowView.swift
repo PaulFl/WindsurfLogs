@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct TrackRowView: View {
-    let track: Track
+    @Binding var track: Track
     
     var body: some View {
         HStack {
@@ -59,7 +59,7 @@ struct TrackRowView_Previews: PreviewProvider {
         NavigationView {
             List {
                 NavigationLink(destination: EmptyView()) {
-                    TrackRowView(track: sampleTrack1)
+                    TrackRowView(track: .constant(sampleTrack1))
                 }
             }
             .navigationTitle("My tracks")

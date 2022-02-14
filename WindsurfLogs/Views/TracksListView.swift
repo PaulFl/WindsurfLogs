@@ -15,9 +15,9 @@ struct TracksListView: View {
     var body: some View {
         
         List {
-            ForEach(sharedTracksStore.tracks.reversed(), id: \.startDate) {track in
+            ForEach($sharedTracksStore.tracks, id: \.startDate) {$track in
                 NavigationLink(destination: TrackDetailsView(track: track)) {
-                    TrackRowView(track: track)
+                    TrackRowView(track: $track)
                 }
             }
             .onDelete(perform: delete)

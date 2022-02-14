@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 
 
-class Track: Codable, Comparable {
+class Track: Codable, Comparable, ObservableObject {
     let startDate: Date
     let endDate: Date
     
@@ -18,10 +18,38 @@ class Track: Codable, Comparable {
     let totalDistance: CLLocationDistance
     let totalDuration: TimeInterval
     
-    var placemarkName: String?
+    @Published var placemarkName: String?
     
 //    let trackPoints: [CLLocationWrapper]
     let middlePoint: CLLocationWrapper
+    
+    enum CodingKeys: CodingKey {
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        startDate = try container.decode(Date.self, forKey: .startDate)
+        endDate = try container.decode(Date.self, forKey: .endDate)
+        maxSpeed = try container.decode(Speed.self, forKey: .maxSpeed)
+        totalDistance = try container.decode(CLLocationDistance.self, forKey: .totalDistance)
+        totalDuration = try container.decode(TimeInterval.self, forKey: .totalDuration)
+        placemarkName = try container.decode(String.self, forKey: .placemarkName)
+        middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(maxSpeed, forKey: .maxSpeed)
+        try container.encode(totalDistance, forKey: .totalDistance)
+        try container.encode(totalDuration, forKey: .totalDuration)
+        try container.encode(placemarkName, forKey: .placemarkName)
+        try container.encode(middlePoint, forKey: .middlePoint)
+    }
     
     init(trackData: [CLLocationWrapper]) {
         self.placemarkName = "Track name"
