@@ -13,6 +13,7 @@
 		E41327B427BA5C03001993E9 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B327BA5C03001993E9 /* TracksListView.swift */; };
 		E41327B627BA61B6001993E9 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B527BA61B6001993E9 /* TabNavigationView.swift */; };
 		E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B727BA7026001993E9 /* TrackProcessing.swift */; };
+		E46FDD8F27BAB64B00ED2B47 /* MapListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46FDD8E27BAB64B00ED2B47 /* MapListView.swift */; };
 		E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */; };
 		E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */; };
 		E49CB00127B6E54400287F11 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB00027B6E54400287F11 /* ContentView.swift */; };
@@ -33,6 +34,7 @@
 		E41327B527BA61B6001993E9 /* TabNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
 		E41327B727BA7026001993E9 /* TrackProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackProcessing.swift; sourceTree = "<group>"; };
 		E41327B927BAAABC001993E9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E46FDD8E27BAB64B00ED2B47 /* MapListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListView.swift; sourceTree = "<group>"; };
 		E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		E49CAFFB27B6E54400287F11 /* WindsurfLogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindsurfLogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsurfLogsApp.swift; sourceTree = "<group>"; };
@@ -121,11 +123,11 @@
 		E49CB00D27B6E71800287F11 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E41327B527BA61B6001993E9 /* TabNavigationView.swift */,
 				E41327B327BA5C03001993E9 /* TracksListView.swift */,
 				E49CB00E27B6E73A00287F11 /* TrackRowView.swift */,
 				E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */,
 				E49CB01627B6EE5000287F11 /* Maps */,
-				E41327B527BA61B6001993E9 /* TabNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +137,7 @@
 			children = (
 				E49CB01727B6EE5C00287F11 /* MiniMapView.swift */,
 				E41327AB27BA4B5D001993E9 /* TrackMapView.swift */,
+				E46FDD8E27BAB64B00ED2B47 /* MapListView.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */,
 				E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */,
 				E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */,
+				E46FDD8F27BAB64B00ED2B47 /* MapListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,7 @@ struct TabNavigationView: View {
             }
             
             NavigationView {
-                TracksListView()
+                MapListView(mapRegion: sampleCoordinateRegion)
             }
             .tabItem {
                 Label("Map", systemImage: "map")

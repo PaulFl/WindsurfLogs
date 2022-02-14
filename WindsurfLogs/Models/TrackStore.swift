@@ -31,6 +31,7 @@ class TrackStore: ObservableObject {
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
                         self.tracks = []
+                        self.isLoading = false
                     }
                     return
                 }
@@ -42,6 +43,7 @@ class TrackStore: ObservableObject {
                 }
             } catch {
                 DispatchQueue.main.async {
+                    self.isLoading = false
                     completion(.failure(error))
                 }
             }
