@@ -37,30 +37,32 @@ struct TracksListView: View {
         }
         .fileImporter(isPresented: $presentImporter, allowedContentTypes: [UTType("com.paulfly.SBP") ?? .data], allowsMultipleSelection: true, onCompletion: {result in
             do {
-                let url = try result.get().first!
-                if url.startAccessingSecurityScopedResource() {
-                    let data = try Data(contentsOf: url)
-                    url.stopAccessingSecurityScopedResource()
-                    let waypoints = SBPDataToWaypoints(fileData: data)
-                    let decodedWaypoints = decodeWaypoints(waypoints: waypoints)
-                    var newTracks = [Track]()
-                    for trackData in decodedWaypoints {
-                        newTracks.append(Track(trackData: trackData))
-                    }
-                    for newTrack in newTracks {
-                        if !sharedTracksStore.tracks.contains(newTrack) {
-                            sharedTracksStore.tracks.append(newTrack)
+                let results = try result.get()
+                for url in results {
+                    if url.startAccessingSecurityScopedResource() {
+                        let data = try Data(contentsOf: url)
+                        url.stopAccessingSecurityScopedResource()
+                        let waypoints = SBPDataToWaypoints(fileData: data)
+                        let decodedWaypoints = decodeWaypoints(waypoints: waypoints)
+                        var newTracks = [Track]()
+                        for trackData in decodedWaypoints {
+                            newTracks.append(Track(trackData: trackData))
                         }
-                    }
-                    sharedTracksStore.tracks.sort()
-                    TrackStore.shared.save(completion: {result in
-                        if case .failure(let error) = result {
-                            print(error.localizedDescription)
+                        for newTrack in newTracks {
+                            if !sharedTracksStore.tracks.contains(newTrack) {
+                                print("new found")
+                                sharedTracksStore.tracks.append(newTrack)
+                            }
+                            print("already here")
                         }
-                    })
-                }
-                
-                
+                        sharedTracksStore.tracks.sort()
+                        TrackStore.shared.save(completion: {result in
+                            if case .failure(let error) = result {
+                                print(error.localizedDescription)
+                            }
+                        })
+                    }
+                }                
             } catch {
                 print(error)
                 return

@@ -16,10 +16,10 @@ let sampleTrackPoints = [CLLocationWrapper(location: CLLocation(latitude: 37.334
 let sampleTrack1 = Track(trackData: sampleTrackPoints)
 
 let sampleCoordinateRegion = MKCoordinateRegion(
-    center: CLLocationCoordinate2D(latitude: 37.334_900,
-                                   longitude: -122.009_020),
-    latitudinalMeters: 750,
-    longitudinalMeters: 750
+    center: CLLocationCoordinate2D(latitude: 46.227638,
+                                   longitude: 2.213749),
+    latitudinalMeters: 1000000,
+    longitudinalMeters: 1000000
 )
 
 let sampleTrackStore = [sampleTrack1, sampleTrack1]

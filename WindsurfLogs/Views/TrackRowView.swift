@@ -15,10 +15,17 @@ struct TrackRowView: View {
         HStack {
             map
             
+            
             Spacer()
             
             VStack(alignment: .trailing, spacing: 4) {
                 title
+                distanceTime
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                maxSpeed
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
                 Spacer()
                 date
                 times
@@ -35,6 +42,18 @@ struct TrackRowView: View {
             .multilineTextAlignment(.trailing)
     }
     
+    var distanceTime: some View {
+        HStack(spacing: 4) {
+            Text(track.getFormattedTotalDistanceKM())
+            Image(systemName: "minus")
+            Text(track.getFormattedDuration())
+        }
+    }
+    
+    var maxSpeed: some View {
+        Text(track.maxSpeed.getFormattedSpeedKPH())
+    }
+    
     var date: some View {
         Text(track.startDate.formatted(date: .abbreviated, time: .omitted))
     }
@@ -48,7 +67,7 @@ struct TrackRowView: View {
     }
     
     var map: some View {
-        MiniMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: MKCoordinateSpan(latitudeDelta: 8, longitudeDelta: 8)))
+        MiniMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: MKCoordinateSpan(latitudeDelta: 8, longitudeDelta: 8)), pins: [MapPinLocation(coordinate: track.middlePoint.location.coordinate)])
             .frame(width: 110)
             .cornerRadius(4)
     }

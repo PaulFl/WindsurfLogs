@@ -10,11 +10,13 @@ import MapKit
 
 struct MapListView: View {
     @State var mapRegion: MKCoordinateRegion
+    
 
     var body: some View {
-        Map(coordinateRegion: $mapRegion)
+        Map(coordinateRegion: $mapRegion, annotationItems: TrackStore.shared.tracks) {
+            MapMarker(coordinate: $0.middlePoint.location.coordinate, tint: .accentColor)
+        }
             .edgesIgnoringSafeArea(.top)
-            .padding(.bottom)
     }
 }
 

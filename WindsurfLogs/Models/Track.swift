@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 
 
-class Track: Codable, Comparable, ObservableObject {
+class Track: Codable, Comparable, ObservableObject, Identifiable {
     let startDate: Date
     let endDate: Date
     
@@ -88,7 +88,7 @@ class Track: Codable, Comparable, ObservableObject {
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
-        return lhs.startDate == rhs.startDate && lhs.endDate == rhs.endDate
+        return lhs.startDate == rhs.startDate
     }
     
     static func < (lhs: Track, rhs: Track) -> Bool {
