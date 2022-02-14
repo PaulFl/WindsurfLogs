@@ -23,7 +23,7 @@ struct Track: Codable, Comparable {
     let trackPoints: [CLLocationWrapper]
     
     static func == (lhs: Track, rhs: Track) -> Bool {
-        return lhs.startDate == rhs.startDate && lhs.startDate == rhs.endDate
+        return lhs.startDate == rhs.startDate && lhs.endDate == rhs.endDate
     }
     
     static func < (lhs: Track, rhs: Track) -> Bool {
@@ -44,6 +44,20 @@ struct Track: Codable, Comparable {
     func getFormattedTotalDistanceNautic() -> String {
         let distance = totalDistance * 0.000539957
         return String(format: "%.2f nm", distance)
+    }
+}
+
+extension Track {
+    init(trackData: [CLLocationWrapper]) {
+        self.startDate = trackData.first?.location.timestamp ?? Date()
+        self.endDate = trackData.last?.location.timestamp ?? Date()
+        
+        self.maxSpeed = Speed(speedMS: 0)
+        self.totalDistance = CLLocationDistance(0)
+        self.totalDuration = TimeInterval(0)
+        
+        self.placemarkName = "Test"
+        self.trackPoints = trackData
     }
 }
 

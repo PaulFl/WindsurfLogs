@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
-            TrackDetailsView(track: sampleTrack1)
-        }
+        TabNavigationView()
     }
 }
 

@@ -10,6 +10,8 @@
 		E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327AB27BA4B5D001993E9 /* TrackMapView.swift */; };
 		E41327AE27BA4F8D001993E9 /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327AD27BA4F8D001993E9 /* TrackStore.swift */; };
 		E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B127BA551E001993E9 /* SBPProcessing.swift */; };
+		E41327B427BA5C03001993E9 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B327BA5C03001993E9 /* TracksListView.swift */; };
+		E41327B627BA61B6001993E9 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B527BA61B6001993E9 /* TabNavigationView.swift */; };
 		E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */; };
 		E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */; };
 		E49CB00127B6E54400287F11 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB00027B6E54400287F11 /* ContentView.swift */; };
@@ -26,6 +28,8 @@
 		E41327AB27BA4B5D001993E9 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		E41327AD27BA4F8D001993E9 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
 		E41327B127BA551E001993E9 /* SBPProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPProcessing.swift; sourceTree = "<group>"; };
+		E41327B327BA5C03001993E9 /* TracksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksListView.swift; sourceTree = "<group>"; };
+		E41327B527BA61B6001993E9 /* TabNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
 		E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		E49CAFFB27B6E54400287F11 /* WindsurfLogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindsurfLogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsurfLogsApp.swift; sourceTree = "<group>"; };
@@ -112,9 +116,11 @@
 		E49CB00D27B6E71800287F11 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E41327B327BA5C03001993E9 /* TracksListView.swift */,
 				E49CB00E27B6E73A00287F11 /* TrackRowView.swift */,
 				E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */,
 				E49CB01627B6EE5000287F11 /* Maps */,
+				E41327B527BA61B6001993E9 /* TabNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 				E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */,
 				E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */,
 				E41327AE27BA4F8D001993E9 /* TrackStore.swift in Sources */,
+				E41327B427BA5C03001993E9 /* TracksListView.swift in Sources */,
+				E41327B627BA61B6001993E9 /* TabNavigationView.swift in Sources */,
 				E49CB01527B6EBD000287F11 /* Speed.swift in Sources */,
 				E49CB01327B6E99C00287F11 /* SampleData.swift in Sources */,
 				E49CB01127B6E8EE00287F11 /* Track.swift in Sources */,
@@ -343,6 +351,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WindsurfLogs/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -373,6 +382,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WindsurfLogs/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

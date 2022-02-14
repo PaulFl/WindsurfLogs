@@ -19,3 +19,5 @@ let sampleCoordinateRegion = MKCoordinateRegion(
     latitudinalMeters: 750,
     longitudinalMeters: 750
 )
+
+let sampleTrackStore = [sampleTrack1, sampleTrack1]
