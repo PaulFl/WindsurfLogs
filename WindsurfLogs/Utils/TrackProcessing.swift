@@ -132,16 +132,9 @@ public func miniMapRegion(waypoints: [CLLocationWrapper]) -> MKCoordinateRegion 
     return MKCoordinateRegion(center: center, span: span)
 }
 
-public func middlePointLocation(waypoint1: CLLocationWrapper, waypoint2: CLLocationWrapper) -> CLLocationWrapper {
-    let latMiddle = (waypoint1.location.coordinate.latitude + waypoint2.location.coordinate.latitude) / 2.0
-    let lonMiddle = (waypoint1.location.coordinate.longitude + waypoint2.location.coordinate.longitude) / 2.0
-    
-    return CLLocationWrapper(location: CLLocation(latitude: latMiddle, longitude: lonMiddle))
-}
-
-public func mapRegion(trackPoints: [CLLocationWrapper], spanFactor: Double) -> MKCoordinateRegion {
+public func middlePointLocation(trackPoints: [CLLocationWrapper]) -> CLLocationWrapper {
     if trackPoints.first?.location == nil {
-        return MKCoordinateRegion()
+        return CLLocationWrapper(location: CLLocation())
     }
     
 
@@ -167,8 +160,5 @@ public func mapRegion(trackPoints: [CLLocationWrapper], spanFactor: Double) -> M
     let middleLon = (minLon + maxLon) / 2
     
     let center = CLLocationCoordinate2D(latitude: middleLat, longitude: middleLon)
-    let span = MKCoordinateSpan(latitudeDelta: spanFactor, longitudeDelta: spanFactor)
-    
-    return MKCoordinateRegion(center: center, span: span)
+    return CLLocationWrapper(location: CLLocation(latitude: center.latitude, longitude: center.longitude))
 }
-

@@ -20,7 +20,7 @@ class Track: Codable, Comparable {
     
     var placemarkName: String?
     
-    let trackPoints: [CLLocationWrapper]
+//    let trackPoints: [CLLocationWrapper]
     let middlePoint: CLLocationWrapper
     
     init(trackData: [CLLocationWrapper]) {
@@ -33,12 +33,13 @@ class Track: Codable, Comparable {
         self.totalDistance = WindsurfLogs.totalDistance(waypoints: trackData)
         self.totalDuration = WindsurfLogs.totalDuration(waypoints: trackData).duration
 
-        self.trackPoints = trackData
+//        self.trackPoints = trackData
 
         
-        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
+//        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
         
-        self.middlePoint = middlePointLocation(waypoint1: trackData.first!, waypoint2: furthestPointFromStart)
+        self.middlePoint = middlePointLocation(trackPoints: trackData)
+        
         
         Task {
             let geocoder = CLGeocoder()
@@ -54,6 +55,7 @@ class Track: Codable, Comparable {
                     self.placemarkName = placemark.ocean
                 }
             }
+            TrackStore.shared.save(completion: {result in})
         }
     }
     
@@ -130,27 +132,3 @@ public struct CLLocationWrapper: Codable {
         self.init(location: location)
     }
 }
-
-//extension CLLocation: Encodable {
-//    public enum CodingKeys: String, CodingKey {
-//        case latitude
-//        case longitude
-//        case altitude
-//        case horizontalAccuracy
-//        case verticalAccuracy
-//        case speed
-//        case course
-//        case timestamp
-//    }
-//    public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(coordinate.latitude, forKey: .latitude)
-//        try container.encode(coordinate.longitude, forKey: .longitude)
-//        try container.encode(altitude, forKey: .altitude)
-//        try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
-//        try container.encode(verticalAccuracy, forKey: .verticalAccuracy)
-//        try container.encode(speed, forKey: .speed)
-//        try container.encode(course, forKey: .course)
-//        try container.encode(timestamp, forKey: .timestamp)
-//    }
-//}

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct TrackRowView: View {
     let track: Track
@@ -31,6 +32,7 @@ struct TrackRowView: View {
     var title: some View {
         Text(track.placemarkName ?? "Track")
             .font(.headline)
+            .multilineTextAlignment(.trailing)
     }
     
     var date: some View {
@@ -46,7 +48,7 @@ struct TrackRowView: View {
     }
     
     var map: some View {
-        MiniMapView(mapRegion: mapRegion(trackPoints: track.trackPoints, spanFactor: 8.0))
+        MiniMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: MKCoordinateSpan(latitudeDelta: 8, longitudeDelta: 8)))
             .frame(width: 110)
             .cornerRadius(4)
     }
@@ -60,6 +62,7 @@ struct TrackRowView_Previews: PreviewProvider {
                     TrackRowView(track: sampleTrack1)
                 }
             }
+            .navigationTitle("My tracks")
         }
     }
 }
