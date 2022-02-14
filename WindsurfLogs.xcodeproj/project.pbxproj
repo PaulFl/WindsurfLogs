@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327AB27BA4B5D001993E9 /* TrackMapView.swift */; };
 		E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */; };
 		E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */; };
 		E49CB00127B6E54400287F11 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB00027B6E54400287F11 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E41327AB27BA4B5D001993E9 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		E49CAFFB27B6E54400287F11 /* WindsurfLogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindsurfLogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsurfLogsApp.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				E49CB01727B6EE5C00287F11 /* MiniMapView.swift */,
+				E41327AB27BA4B5D001993E9 /* TrackMapView.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				E49CB00F27B6E73A00287F11 /* TrackRowView.swift in Sources */,
 				E49CB00127B6E54400287F11 /* ContentView.swift in Sources */,
 				E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */,
+				E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */,
 				E49CB01527B6EBD000287F11 /* Speed.swift in Sources */,
 				E49CB01327B6E99C00287F11 /* SampleData.swift in Sources */,
 				E49CB01127B6E8EE00287F11 /* Track.swift in Sources */,

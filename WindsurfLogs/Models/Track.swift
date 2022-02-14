@@ -26,10 +26,13 @@ struct Track {
         return formatter.string(from: totalDuration) ?? ""
     }
     
-    func getFormattedTotalDistance() -> String {
-        let formatter = MKDistanceFormatter()
-        formatter.units = .metric
-        formatter.unitStyle = .abbreviated
-        return formatter.string(fromDistance: totalDistance)
+    func getFormattedTotalDistanceKM() -> String {
+        let distance = totalDistance * 0.001
+        return String(format: "%.2f km", distance)
+    }
+    
+    func getFormattedTotalDistanceNautic() -> String {
+        let distance = totalDistance * 0.000539957
+        return String(format: "%.2f nm", distance)
     }
 }

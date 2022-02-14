@@ -21,4 +21,12 @@ struct Speed: Comparable {
     static func < (lhs: Speed, rhs: Speed) -> Bool {
         return lhs.speedMS < rhs.speedMS
     }
+    
+    func getFormattedSpeedKPH() -> String {
+        return String(format: "%.2f km/h", self.speedKPH)
+    }
+    
+    func getFormattedSpeedKTS() -> String {
+        return String(format: "%.2f kts", self.speedKTS)
+    }
 }
