@@ -78,7 +78,7 @@ struct TrackDetailsView: View {
                 // MARK: Map
                 Section("Map") {
                     NavigationLink(destination: EmptyView()) {
-                        TrackMapView()
+                        TrackMapView(mapRegion: sampleCoordinateRegion)
                             .cornerRadius(4)
                             .frame(minHeight: UIScreen.main.bounds.height / 2)
                     }

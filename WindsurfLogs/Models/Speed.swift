@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Speed: Comparable {
+struct Speed: Codable, Comparable {
     let speedMS: Double
     let speedKPH: Double
     let speedKTS: Double

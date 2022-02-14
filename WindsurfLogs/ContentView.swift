@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TrackDetailsView(track: sampleTrack1)
+        NavigationView {
+            TrackDetailsView(track: sampleTrack1)
+        }
     }
 }
 
