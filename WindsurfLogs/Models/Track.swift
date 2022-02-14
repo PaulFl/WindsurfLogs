@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 
 
-struct Track: Codable, Comparable {
+class Track: Codable, Comparable {
     let startDate: Date
     let endDate: Date
     
@@ -18,9 +18,44 @@ struct Track: Codable, Comparable {
     let totalDistance: CLLocationDistance
     let totalDuration: TimeInterval
     
-    let placemarkName: String?
+    var placemarkName: String?
     
     let trackPoints: [CLLocationWrapper]
+    let middlePoint: CLLocationWrapper
+    
+    init(trackData: [CLLocationWrapper]) {
+        self.placemarkName = "Track name"
+
+        self.startDate = trackData.first?.location.timestamp ?? Date()
+        self.endDate = trackData.last?.location.timestamp ?? Date()
+        
+        self.maxSpeed = Speed(speedMS: maxSpeedInstant(waypoints: trackData))
+        self.totalDistance = WindsurfLogs.totalDistance(waypoints: trackData)
+        self.totalDuration = WindsurfLogs.totalDuration(waypoints: trackData).duration
+
+        self.trackPoints = trackData
+
+        
+        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
+        
+        self.middlePoint = middlePointLocation(waypoint1: trackData.first!, waypoint2: furthestPointFromStart)
+        
+        Task {
+            let geocoder = CLGeocoder()
+            let placemarks = try await geocoder.reverseGeocodeLocation(self.middlePoint.location)
+            if let placemark = placemarks.first {
+                if placemark.inlandWater != nil {
+                    self.placemarkName = placemark.inlandWater
+                } else if placemark.areasOfInterest?.first != nil {
+                    self.placemarkName = placemark.areasOfInterest!.first
+                } else if placemark.locality != nil {
+                    self.placemarkName = placemark.locality
+                } else if placemark.ocean != nil {
+                    self.placemarkName = placemark.ocean
+                }
+            }
+        }
+    }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs.startDate == rhs.startDate && lhs.endDate == rhs.endDate
@@ -32,8 +67,9 @@ struct Track: Codable, Comparable {
     
     func getFormattedDuration() -> String {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .short
-        return formatter.string(from: totalDuration) ?? ""
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .abbreviated
+        return formatter.string(from: self.totalDuration) ?? "-"
     }
     
     func getFormattedTotalDistanceKM() -> String {
@@ -47,20 +83,6 @@ struct Track: Codable, Comparable {
     }
 }
 
-extension Track {
-    init(trackData: [CLLocationWrapper]) {
-        self.startDate = trackData.first?.location.timestamp ?? Date()
-        self.endDate = trackData.last?.location.timestamp ?? Date()
-        
-        self.maxSpeed = Speed(speedMS: 0)
-        self.totalDistance = CLLocationDistance(0)
-        self.totalDuration = TimeInterval(0)
-        
-        self.placemarkName = "Test"
-        self.trackPoints = trackData
-    }
-}
-
 public struct CLLocationWrapper: Codable {
     var location: CLLocation
     
@@ -68,8 +90,31 @@ public struct CLLocationWrapper: Codable {
         self.location = location
     }
     
+    public enum CodingKeys: String, CodingKey {
+        case latitude
+        case longitude
+        case altitude
+        case horizontalAccuracy
+        case verticalAccuracy
+        case speed
+        case course
+        case timestamp
+    }
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(location.coordinate.latitude, forKey: .latitude)
+        try container.encode(location.coordinate.longitude, forKey: .longitude)
+        try container.encode(location.altitude, forKey: .altitude)
+        try container.encode(location.horizontalAccuracy, forKey: .horizontalAccuracy)
+        try container.encode(location.verticalAccuracy, forKey: .verticalAccuracy)
+        try container.encode(location.speed, forKey: .speed)
+        try container.encode(location.course, forKey: .course)
+        try container.encode(location.timestamp, forKey: .timestamp)
+    }
+
+    
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CLLocation.CodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let latitude = try container.decode(CLLocationDegrees.self, forKey: .latitude)
         let longitude = try container.decode(CLLocationDegrees.self, forKey: .longitude)
@@ -86,26 +131,26 @@ public struct CLLocationWrapper: Codable {
     }
 }
 
-extension CLLocation: Encodable {
-    public enum CodingKeys: String, CodingKey {
-        case latitude
-        case longitude
-        case altitude
-        case horizontalAccuracy
-        case verticalAccuracy
-        case speed
-        case course
-        case timestamp
-    }
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(coordinate.latitude, forKey: .latitude)
-        try container.encode(coordinate.longitude, forKey: .longitude)
-        try container.encode(altitude, forKey: .altitude)
-        try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
-        try container.encode(verticalAccuracy, forKey: .verticalAccuracy)
-        try container.encode(speed, forKey: .speed)
-        try container.encode(course, forKey: .course)
-        try container.encode(timestamp, forKey: .timestamp)
-    }
-}
+//extension CLLocation: Encodable {
+//    public enum CodingKeys: String, CodingKey {
+//        case latitude
+//        case longitude
+//        case altitude
+//        case horizontalAccuracy
+//        case verticalAccuracy
+//        case speed
+//        case course
+//        case timestamp
+//    }
+//    public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(coordinate.latitude, forKey: .latitude)
+//        try container.encode(coordinate.longitude, forKey: .longitude)
+//        try container.encode(altitude, forKey: .altitude)
+//        try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
+//        try container.encode(verticalAccuracy, forKey: .verticalAccuracy)
+//        try container.encode(speed, forKey: .speed)
+//        try container.encode(course, forKey: .course)
+//        try container.encode(timestamp, forKey: .timestamp)
+//    }
+//}

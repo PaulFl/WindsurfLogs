@@ -12,6 +12,7 @@ class TrackStore: ObservableObject {
     static let shared = TrackStore()
     
     @Published var tracks: [Track] = []
+    @Published var isLoading = false
     
     private init() {}
     
@@ -23,6 +24,9 @@ class TrackStore: ObservableObject {
     func load(completion: @escaping (Result<[Track], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
+                DispatchQueue.main.async {
+                    self.isLoading = true
+                }
                 let fileURL = try self.fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
@@ -34,6 +38,7 @@ class TrackStore: ObservableObject {
                 DispatchQueue.main.async {
                     self.tracks = decodedTracks
                     self.tracks.sort()
+                    self.isLoading = false
                 }
             } catch {
                 DispatchQueue.main.async {

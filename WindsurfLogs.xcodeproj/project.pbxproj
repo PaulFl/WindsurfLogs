@@ -12,6 +12,7 @@
 		E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B127BA551E001993E9 /* SBPProcessing.swift */; };
 		E41327B427BA5C03001993E9 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B327BA5C03001993E9 /* TracksListView.swift */; };
 		E41327B627BA61B6001993E9 /* TabNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B527BA61B6001993E9 /* TabNavigationView.swift */; };
+		E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B727BA7026001993E9 /* TrackProcessing.swift */; };
 		E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */; };
 		E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */; };
 		E49CB00127B6E54400287F11 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB00027B6E54400287F11 /* ContentView.swift */; };
@@ -30,6 +31,8 @@
 		E41327B127BA551E001993E9 /* SBPProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPProcessing.swift; sourceTree = "<group>"; };
 		E41327B327BA5C03001993E9 /* TracksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksListView.swift; sourceTree = "<group>"; };
 		E41327B527BA61B6001993E9 /* TabNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationView.swift; sourceTree = "<group>"; };
+		E41327B727BA7026001993E9 /* TrackProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackProcessing.swift; sourceTree = "<group>"; };
+		E41327B927BAAABC001993E9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		E49CAFFB27B6E54400287F11 /* WindsurfLogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindsurfLogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49CAFFE27B6E54400287F11 /* WindsurfLogsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsurfLogsApp.swift; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				E41327B127BA551E001993E9 /* SBPProcessing.swift */,
+				E41327B727BA7026001993E9 /* TrackProcessing.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -68,6 +72,7 @@
 			children = (
 				E49CAFFD27B6E54400287F11 /* WindsurfLogs */,
 				E49CB01227B6E99C00287F11 /* SampleData.swift */,
+				E41327B927BAAABC001993E9 /* .gitignore */,
 				E49CAFFC27B6E54400287F11 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 				E49CB01327B6E99C00287F11 /* SampleData.swift in Sources */,
 				E49CB01127B6E8EE00287F11 /* Track.swift in Sources */,
 				E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */,
+				E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */,
 				E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

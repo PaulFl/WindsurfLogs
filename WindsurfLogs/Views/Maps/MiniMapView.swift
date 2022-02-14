@@ -9,14 +9,17 @@ import SwiftUI
 import MapKit
 
 struct MiniMapView: View {
+    @State var mapRegion: MKCoordinateRegion
+    
     var body: some View {
-//        Map(
-        EmptyView()
+        Map(coordinateRegion: $mapRegion, interactionModes: [])
+            
+            .aspectRatio(1.0, contentMode: .fit)
     }
 }
 
 struct MiniMapView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniMapView()
+        MiniMapView(mapRegion: sampleCoordinateRegion)
     }
 }

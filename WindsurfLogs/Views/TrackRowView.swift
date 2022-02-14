@@ -12,21 +12,54 @@ struct TrackRowView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "point.topleft.down.curvedto.point.bottomright.up")
-                .font(.largeTitle)
-                .foregroundColor(.accentColor)
-            VStack {
-                Text(track.startDate.formatted())
-                Text(track.endDate.formatted())
-                Text(String(track.maxSpeed.speedKPH))
+            map
+            
+            Spacer()
+            
+            VStack(alignment: .trailing, spacing: 4) {
+                title
+                Spacer()
+                date
+                times
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
             }
         }
+        .padding(.vertical, 5)
+    }
+    
+    var title: some View {
+        Text(track.placemarkName ?? "Track")
+            .font(.headline)
+    }
+    
+    var date: some View {
+        Text(track.startDate.formatted(date: .abbreviated, time: .omitted))
+    }
+    
+    var times: some View {
+        HStack(spacing: 4) {
+            Text(track.startDate.formatted(date: .omitted, time: .shortened))
+            Image(systemName: "arrow.right")
+            Text(track.endDate.formatted(date: .omitted, time: .shortened))
+        }
+    }
+    
+    var map: some View {
+        MiniMapView(mapRegion: mapRegion(trackPoints: track.trackPoints, spanFactor: 8.0))
+            .frame(width: 110)
+            .cornerRadius(4)
     }
 }
 
 struct TrackRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackRowView(track: sampleTrack1)
-            .previewLayout(.sizeThatFits)
+        NavigationView {
+            List {
+                NavigationLink(destination: EmptyView()) {
+                    TrackRowView(track: sampleTrack1)
+                }
+            }
+        }
     }
 }
