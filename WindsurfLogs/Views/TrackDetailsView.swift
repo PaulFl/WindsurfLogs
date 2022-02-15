@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct TrackDetailsView: View {
-    let track: Track
+    @Binding var track: Track
     
     var body: some View {
             List {
@@ -80,7 +80,7 @@ struct TrackDetailsView: View {
                 Section("Map") {
                     NavigationLink(destination: TrackMapFullView(track: track)) {
                         let span = MKCoordinateSpan(latitudeDelta: track.trackSpan.latitudeDelta * 1.2, longitudeDelta: track.trackSpan.longitudeDelta * 1.2)
-                        TrackMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: span), lineCoordinates: track.trackPoints)
+                        TrackMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: span), lineCoordinates: $track.trackPoints)
                             .cornerRadius(4)
                             .frame(minHeight: UIScreen.main.bounds.height / 2)
                     }
@@ -89,13 +89,16 @@ struct TrackDetailsView: View {
             }
             .listStyle(.sidebar)
             .navigationTitle(track.placemarkName ?? "Track details")
+            .task {
+                track.trackPoints = loadTrackData(track: track)
+            }
     }
 }
 
 struct TrackDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            TrackDetailsView(track: sampleTrack1)
+            TrackDetailsView(track: .constant(sampleTrack1))
         }
     }
 }

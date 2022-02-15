@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 
 class TrackStore: ObservableObject {
@@ -65,5 +66,28 @@ class TrackStore: ObservableObject {
                 }
             }
         }
+    }
+}
+
+func saveTrackData(startDate: Date, trackData: [CLLocationCoordinate2D]) {
+    do {
+        let data = try JSONEncoder().encode(trackData)
+        let fileUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent(startDate.ISO8601Format())
+        try data.write(to: fileUrl)
+    } catch {
+        
+    }
+}
+
+func loadTrackData(track: Track) -> [CLLocationCoordinate2D]? {
+    do {
+        let fileUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent(track.startPoint.location.timestamp.ISO8601Format())
+        let file = try FileHandle(forReadingFrom: fileUrl)
+        let decodedTrackData = try JSONDecoder().decode([CLLocationCoordinate2D].self, from: file.availableData)
+        return decodedTrackData
+    } catch {
+        return nil
     }
 }

@@ -16,7 +16,7 @@ struct TracksListView: View {
         
         List {
             ForEach($sharedTracksStore.tracks, id: \.startDate) {$track in
-                NavigationLink(destination: TrackDetailsView(track: track)) {
+                NavigationLink(destination: TrackDetailsView(track: $track)) {
                     TrackRowView(track: $track)
                 }
             }

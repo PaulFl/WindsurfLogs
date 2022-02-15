@@ -14,7 +14,7 @@ struct TrackMapFullView: View {
     var body: some View {
         let span = MKCoordinateSpan(latitudeDelta: track.trackSpan.latitudeDelta * 1.2, longitudeDelta: track.trackSpan.longitudeDelta * 1.2)
         let region = MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: span)
-        UIMapView(region: region, interactionEnabled: true, lineCoordinates: track.trackPoints)
+        UIMapView(region: region, interactionEnabled: true, lineCoordinates: track.trackPoints ?? [])
             .ignoresSafeArea()
     }
 }
