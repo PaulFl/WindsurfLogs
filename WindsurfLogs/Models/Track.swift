@@ -21,12 +21,13 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     @Published var placemarkName: String?
     
     let middlePoint: CLLocationWrapper
+    let trackSpan: MKCoordinateSpan
     
     let trackPoints: [CLLocationCoordinate2D]
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, trackPoints
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, trackSpan, trackPoints
     }
     
     required init(from decoder: Decoder) throws {
@@ -39,6 +40,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         totalDuration = try container.decode(TimeInterval.self, forKey: .totalDuration)
         placemarkName = try container.decode(String.self, forKey: .placemarkName)
         middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
+        trackSpan = try container.decode(MKCoordinateSpan.self, forKey: .trackSpan)
         trackPoints = try container.decode([CLLocationCoordinate2D].self, forKey: .trackPoints)
     }
     
@@ -52,6 +54,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(totalDuration, forKey: .totalDuration)
         try container.encode(placemarkName, forKey: .placemarkName)
         try container.encode(middlePoint, forKey: .middlePoint)
+        try container.encode(trackSpan, forKey: .trackSpan)
         try container.encode(trackPoints, forKey: .trackPoints)
     }
     
@@ -68,9 +71,13 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
 
         
 //        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
-        
-        self.middlePoint = middlePointLocation(trackPoints: trackData)
         self.trackPoints = trackData.map{$0.location.coordinate}
+        
+        let trackRegion = getTrackMapRegion(waypoints: trackData)
+        
+        self.middlePoint = CLLocationWrapper(location: CLLocation(latitude: trackRegion.center.latitude, longitude: trackRegion.center.longitude))
+        self.trackSpan = trackRegion.span
+        
         
         
         Task {
