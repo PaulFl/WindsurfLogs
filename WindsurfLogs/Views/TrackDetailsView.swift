@@ -83,6 +83,19 @@ struct TrackDetailsView: View {
                         Image(systemName: "point.3.connected.trianglepath.dotted")
                             .foregroundColor(.accentColor)
                     })
+                    
+                    // MARK: Furthest distance
+                    Label(title: {
+                        HStack {
+                            Text(track.maxDistanceFromStart.getFormattedKM())
+                            Spacer()
+                            Text(track.maxDistanceFromStart.getFormattedNautic())
+                                .foregroundColor(.secondary)
+                                .padding(.trailing)
+                        }
+                    }, icon: {
+                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                    })
                 }
                 
                 // MARK: Map

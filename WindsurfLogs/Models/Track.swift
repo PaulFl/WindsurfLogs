@@ -20,6 +20,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     let totalDistance: CLLocationDistance
     let totalDuration: TimeInterval
     
+    let maxDistanceFromStart: CLLocationDistance
+    
     @Published var placemarkName: String?
     
     let startPoint: CLLocationWrapper
@@ -30,7 +32,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart
     }
     
     required init(from decoder: Decoder) throws {
@@ -46,6 +48,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
         trackSpan = try container.decode(MKCoordinateSpan.self, forKey: .trackSpan)
         fileName = try container.decode(String?.self, forKey: .fileName)
+        maxDistanceFromStart = try container.decode(CLLocationDistance.self, forKey: .maxDistanceFromStart)
         trackPoints = nil
     }
     
@@ -63,6 +66,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(trackSpan, forKey: .trackSpan)
         try container.encode(fileName, forKey: .fileName)
         try container.encode(trackPoints, forKey: .trackPoints)
+        try container.encode(maxDistanceFromStart, forKey: .maxDistanceFromStart)
     }
     
     init(trackData: [CLLocationWrapper], fileName: String?) {
@@ -77,7 +81,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
 
 
         
-//        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
+        let (furthestDistanceFromStart, _) = furthestPointDistanceFromStart(waypoints: trackData)
+        self.maxDistanceFromStart = furthestDistanceFromStart
         self.trackPoints = trackData.map{$0.location.coordinate}
         
         let trackRegion = getTrackMapRegion(waypoints: trackData)
