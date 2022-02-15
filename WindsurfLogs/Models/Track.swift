@@ -20,11 +20,13 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     @Published var placemarkName: String?
     
-//    let trackPoints: [CLLocationWrapper]
     let middlePoint: CLLocationWrapper
     
+    let trackPoints: [CLLocationCoordinate2D]
+    
+    
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, trackPoints
     }
     
     required init(from decoder: Decoder) throws {
@@ -37,6 +39,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         totalDuration = try container.decode(TimeInterval.self, forKey: .totalDuration)
         placemarkName = try container.decode(String.self, forKey: .placemarkName)
         middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
+        trackPoints = try container.decode([CLLocationCoordinate2D].self, forKey: .trackPoints)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -49,6 +52,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(totalDuration, forKey: .totalDuration)
         try container.encode(placemarkName, forKey: .placemarkName)
         try container.encode(middlePoint, forKey: .middlePoint)
+        try container.encode(middlePoint, forKey: .trackPoints)
     }
     
     init(trackData: [CLLocationWrapper]) {
@@ -61,12 +65,12 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         self.totalDistance = WindsurfLogs.totalDistance(waypoints: trackData)
         self.totalDuration = WindsurfLogs.totalDuration(waypoints: trackData).duration
 
-//        self.trackPoints = trackData
 
         
 //        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
         
         self.middlePoint = middlePointLocation(trackPoints: trackData)
+        self.trackPoints = trackData.compactMap({$0.location.coordinate})
         
         
         Task {

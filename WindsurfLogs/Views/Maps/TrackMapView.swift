@@ -12,7 +12,7 @@ struct TrackMapView: View {
     @State var mapRegion: MKCoordinateRegion
     
     var body: some View {
-        Map(coordinateRegion: $mapRegion)
+        Map(coordinateRegion: $mapRegion, interactionModes: [])
     }
 }
 

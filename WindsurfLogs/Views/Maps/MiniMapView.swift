@@ -16,7 +16,6 @@ struct MiniMapView: View {
     
     var body: some View {
         Map(coordinateRegion: $mapRegion, interactionModes: [], annotationItems: pins) {
-//            MapMarker(coordinate: $0.coordinate, tint: .accentColor)
             MapAnnotation(coordinate: $0.coordinate, anchorPoint: CGPoint(x: 0.5, y: 1)) {
                 Image(systemName: "mappin")
                     .foregroundColor(.accentColor)

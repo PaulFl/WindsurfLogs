@@ -25,6 +25,7 @@
 		E49CB01527B6EBD000287F11 /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01427B6EBD000287F11 /* Speed.swift */; };
 		E49CB01827B6EE5C00287F11 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01727B6EE5C00287F11 /* MiniMapView.swift */; };
 		E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */; };
+		E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3427BB9A6600FD599A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		E49CB01727B6EE5C00287F11 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
 		E4A9830627B847BE00A63A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinLocation.swift; sourceTree = "<group>"; };
+		E4F91A3427BB9A6600FD599A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			children = (
 				E41327B127BA551E001993E9 /* SBPProcessing.swift */,
 				E41327B727BA7026001993E9 /* TrackProcessing.swift */,
+				E4F91A3427BB9A6600FD599A /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */,
 				E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */,
 				E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */,
+				E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */,
 				E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */,
 				E46FDD8F27BAB64B00ED2B47 /* MapListView.swift in Sources */,
 			);
