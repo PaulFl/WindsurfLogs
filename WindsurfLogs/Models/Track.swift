@@ -14,6 +14,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     let startDate: Date
     let endDate: Date
     
+    let fileName: String?
+    
     let maxSpeed: Speed
     let totalDistance: CLLocationDistance
     let totalDuration: TimeInterval
@@ -28,7 +30,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, trackPoints
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints
     }
     
     required init(from decoder: Decoder) throws {
@@ -43,7 +45,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         startPoint = try container.decode(CLLocationWrapper.self, forKey: .startPoint)
         middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
         trackSpan = try container.decode(MKCoordinateSpan.self, forKey: .trackSpan)
-//        trackPoints = try container.decode([CLLocationCoordinate2D].self, forKey: .trackPoints)
+        fileName = try container.decode(String?.self, forKey: .fileName)
         trackPoints = nil
     }
     
@@ -59,10 +61,11 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(startPoint, forKey: .startPoint)
         try container.encode(middlePoint, forKey: .middlePoint)
         try container.encode(trackSpan, forKey: .trackSpan)
+        try container.encode(fileName, forKey: .fileName)
         try container.encode(trackPoints, forKey: .trackPoints)
     }
     
-    init(trackData: [CLLocationWrapper]) {
+    init(trackData: [CLLocationWrapper], fileName: String?) {
         self.placemarkName = "Track name"
 
         self.startDate = trackData.first?.location.timestamp ?? Date()
@@ -81,6 +84,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         self.startPoint = trackData.first!
         self.middlePoint = CLLocationWrapper(location: CLLocation(latitude: trackRegion.center.latitude, longitude: trackRegion.center.longitude))
         self.trackSpan = trackRegion.span
+        
+        self.fileName = fileName
         
         
         

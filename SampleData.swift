@@ -13,7 +13,7 @@ let sampleTrackPoints = [CLLocationWrapper(location: CLLocation(latitude: 37.334
 
 //let sampleTrack1 = Track(startDate: Date(timeIntervalSinceNow: TimeInterval(-3000)), endDate: Date(), maxSpeed: Speed(speedMS: 10), totalDistance: 11.5*1000, totalDuration: TimeInterval(3000), placemarkName: "La Baule", trackPoints: sampleTrackPoints, middlePoint: sampleTrackPoints.first!)
 
-let sampleTrack1 = Track(trackData: sampleTrackPoints)
+let sampleTrack1 = Track(trackData: sampleTrackPoints, fileName: nil)
 
 let sampleCoordinateRegion = MKCoordinateRegion(
     center: CLLocationCoordinate2D(latitude: 46.227638,

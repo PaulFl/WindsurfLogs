@@ -13,6 +13,15 @@ struct TrackDetailsView: View {
     
     var body: some View {
             List {
+                if track.fileName != nil {
+                Label(title: {
+                    Text(track.fileName!)
+                        .foregroundColor(.secondary)
+                }, icon: {
+                    Image(systemName: "doc.text")
+                })
+                }
+                
                 // MARK: Date & time
                 Section("Date & Time") {
                     // MARK: Calendar

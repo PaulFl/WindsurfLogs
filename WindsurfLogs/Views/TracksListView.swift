@@ -50,7 +50,7 @@ struct TracksListView: View {
                         let decodedWaypoints = decodeWaypoints(waypoints: waypoints)
                         var newTracks = [Track]()
                         for trackData in decodedWaypoints {
-                            newTracks.append(Track(trackData: trackData))
+                            newTracks.append(Track(trackData: trackData, fileName: url.lastPathComponent))
                         }
                         for newTrack in newTracks {
                             if !sharedTracksStore.tracks.contains(newTrack) {

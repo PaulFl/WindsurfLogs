@@ -62,8 +62,8 @@ public func decodeWaypoints(waypoints: [Data]) -> [[CLLocationWrapper]] {
         let latitude = Double(Int32(littleEndian: latBytes.withUnsafeBytes { $0.load(as: Int32.self) })) / 1e7
         let longitude = Double(Int32(littleEndian: lonBytes.withUnsafeBytes { $0.load(as: Int32.self) })) / 1e7
         
-        let altitude = CLLocationDistance((Int32(littleEndian: altBytes.withUnsafeBytes { $0.load(as: Int32.self) })) / 100)
-        let speed = CLLocationSpeed((UInt16(littleEndian: speedBytes.withUnsafeBytes { $0.load(as: UInt16.self) })) / 100)
+        let altitude = CLLocationDistance(Double(Int32(littleEndian: altBytes.withUnsafeBytes { $0.load(as: Int32.self) })) / 100.0)
+        let speed = CLLocationSpeed(Double(UInt16(littleEndian: speedBytes.withUnsafeBytes { $0.load(as: UInt16.self) })) / 100.0)
         let heading = CLLocationDirection(UInt16(littleEndian: headingBytes.withUnsafeBytes { $0.load(as: UInt16.self) }))
         //       let vario = CLLocationSpeed((Int16(littleEndian: varioBytes.withUnsafeBytes { $0.load(as: Int16.self) })) / 100)
         
