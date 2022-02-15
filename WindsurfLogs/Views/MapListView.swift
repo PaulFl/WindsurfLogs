@@ -10,11 +10,17 @@ import MapKit
 
 struct MapListView: View {
     @State var mapRegion: MKCoordinateRegion
-    
+    @ObservedObject var sharedTracksStore = TrackStore.shared
+
 
     var body: some View {
-        Map(coordinateRegion: $mapRegion, annotationItems: TrackStore.shared.tracks) {
-            MapMarker(coordinate: $0.middlePoint.location.coordinate, tint: .accentColor)
+        Map(coordinateRegion: $mapRegion, annotationItems: $sharedTracksStore.tracks) { $track in
+            MapAnnotation(coordinate: track.middlePoint.location.coordinate, anchorPoint: CGPoint(x: 0.5, y: 1)) {
+                NavigationLink(destination: TrackDetailsView(track: $track)) {
+                    Image(systemName: "mappin.circle.fill")
+                        .foregroundColor(.accentColor)
+                }
+            }
         }
             .edgesIgnoringSafeArea(.top)
     }
