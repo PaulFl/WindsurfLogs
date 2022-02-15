@@ -20,6 +20,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     @Published var placemarkName: String?
     
+    let startPoint: CLLocationWrapper
     let middlePoint: CLLocationWrapper
     let trackSpan: MKCoordinateSpan
     
@@ -27,7 +28,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, trackSpan, trackPoints
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, trackPoints
     }
     
     required init(from decoder: Decoder) throws {
@@ -39,6 +40,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         totalDistance = try container.decode(CLLocationDistance.self, forKey: .totalDistance)
         totalDuration = try container.decode(TimeInterval.self, forKey: .totalDuration)
         placemarkName = try container.decode(String.self, forKey: .placemarkName)
+        startPoint = try container.decode(CLLocationWrapper.self, forKey: .startPoint)
         middlePoint = try container.decode(CLLocationWrapper.self, forKey: .middlePoint)
         trackSpan = try container.decode(MKCoordinateSpan.self, forKey: .trackSpan)
         trackPoints = try container.decode([CLLocationCoordinate2D].self, forKey: .trackPoints)
@@ -53,6 +55,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(totalDistance, forKey: .totalDistance)
         try container.encode(totalDuration, forKey: .totalDuration)
         try container.encode(placemarkName, forKey: .placemarkName)
+        try container.encode(startPoint, forKey: .startPoint)
         try container.encode(middlePoint, forKey: .middlePoint)
         try container.encode(trackSpan, forKey: .trackSpan)
         try container.encode(trackPoints, forKey: .trackPoints)
@@ -74,7 +77,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         self.trackPoints = trackData.map{$0.location.coordinate}
         
         let trackRegion = getTrackMapRegion(waypoints: trackData)
-        
+        self.startPoint = trackData.first!
         self.middlePoint = CLLocationWrapper(location: CLLocation(latitude: trackRegion.center.latitude, longitude: trackRegion.center.longitude))
         self.trackSpan = trackRegion.span
         
@@ -82,8 +85,9 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         
         Task {
             let geocoder = CLGeocoder()
-            let placemarks = try await geocoder.reverseGeocodeLocation(self.middlePoint.location)
+            let placemarks = try await geocoder.reverseGeocodeLocation(self.startPoint.location)
             if let placemark = placemarks.first {
+                print(placemark)
                 if placemark.inlandWater != nil {
                     self.placemarkName = placemark.inlandWater
                 } else if placemark.areasOfInterest?.first != nil {
@@ -92,6 +96,12 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
                     self.placemarkName = placemark.locality
                 } else if placemark.ocean != nil {
                     self.placemarkName = placemark.ocean
+                }
+            }
+            let placemarksMiddle = try await geocoder.reverseGeocodeLocation(self.middlePoint.location)
+            if let placemarkMiddle = placemarksMiddle.first {
+                if placemarkMiddle.inlandWater != nil {
+                    self.placemarkName = placemarkMiddle.inlandWater
                 }
             }
             TrackStore.shared.save(completion: {result in})
