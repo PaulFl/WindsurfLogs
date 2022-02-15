@@ -25,6 +25,7 @@
 		E49CB01527B6EBD000287F11 /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01427B6EBD000287F11 /* Speed.swift */; };
 		E49CB01827B6EE5C00287F11 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01727B6EE5C00287F11 /* MiniMapView.swift */; };
 		E4F0A84927BBA578006C9F52 /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A84827BBA578006C9F52 /* UIMapView.swift */; };
+		E4F0A84B27BBB415006C9F52 /* TrackMapFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A84A27BBB415006C9F52 /* TrackMapFullView.swift */; };
 		E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */; };
 		E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3427BB9A6600FD599A /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		E49CB01727B6EE5C00287F11 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
 		E4A9830627B847BE00A63A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E4F0A84827BBA578006C9F52 /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
+		E4F0A84A27BBB415006C9F52 /* TrackMapFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapFullView.swift; sourceTree = "<group>"; };
 		E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinLocation.swift; sourceTree = "<group>"; };
 		E4F91A3427BB9A6600FD599A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +137,7 @@
 				E41327B327BA5C03001993E9 /* TracksListView.swift */,
 				E49CB00E27B6E73A00287F11 /* TrackRowView.swift */,
 				E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */,
+				E4F0A84A27BBB415006C9F52 /* TrackMapFullView.swift */,
 				E49CB01627B6EE5000287F11 /* Maps */,
 			);
 			path = Views;
@@ -238,6 +241,7 @@
 				E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */,
 				E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */,
 				E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */,
+				E4F0A84B27BBB415006C9F52 /* TrackMapFullView.swift in Sources */,
 				E46FDD8F27BAB64B00ED2B47 /* MapListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,7 +78,7 @@ struct TrackDetailsView: View {
                 
                 // MARK: Map
                 Section("Map") {
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: TrackMapFullView(track: track)) {
                         let span = MKCoordinateSpan(latitudeDelta: track.trackSpan.latitudeDelta * 1.2, longitudeDelta: track.trackSpan.longitudeDelta * 1.2)
                         TrackMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: span), lineCoordinates: track.trackPoints)
                             .cornerRadius(4)
