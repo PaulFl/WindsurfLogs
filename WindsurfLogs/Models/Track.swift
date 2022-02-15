@@ -93,7 +93,6 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
             let geocoder = CLGeocoder()
             let placemarks = try await geocoder.reverseGeocodeLocation(self.startPoint.location)
             if let placemark = placemarks.first {
-                print(placemark)
                 if placemark.inlandWater != nil {
                     self.placemarkName = placemark.inlandWater
                 } else if placemark.areasOfInterest?.first != nil {

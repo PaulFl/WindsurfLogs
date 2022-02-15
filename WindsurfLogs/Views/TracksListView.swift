@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 
 struct TracksListView: View {
     @State var presentImporter = false
+    @State var progress = 2.0
     @ObservedObject var sharedTracksStore = TrackStore.shared
     
     var body: some View {
@@ -25,49 +26,70 @@ struct TracksListView: View {
         .navigationTitle("Tracks")
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    if !TrackStore.shared.isLoading {
-                        presentImporter = true
+                if progress > 1.5 {
+                    Button(action: {
+                        if !TrackStore.shared.isLoading {
+                            presentImporter = true
+                        }
+                    }) {
+                        if TrackStore.shared.isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.accentColor))
+                        } else {
+                            Image(systemName: "plus")
+                        }
                     }
-                }) {
-                    if TrackStore.shared.isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: Color.accentColor))
-                    } else {
-                        Image(systemName: "plus")
-                    }
+                } else {
+                    ProgressView(value: progress)
+                        .frame(width: 50)
                 }
             }
         }
         .fileImporter(isPresented: $presentImporter, allowedContentTypes: [UTType("com.paulfly.SBP") ?? .data], allowsMultipleSelection: true, onCompletion: {result in
-            do {
-                let results = try result.get()
-                for url in results {
-                    if url.startAccessingSecurityScopedResource() {
-                        let data = try Data(contentsOf: url)
-                        url.stopAccessingSecurityScopedResource()
-                        let waypoints = SBPDataToWaypoints(fileData: data)
-                        let decodedWaypoints = decodeWaypoints(waypoints: waypoints)
-                        var newTracks = [Track]()
-                        for trackData in decodedWaypoints {
-                            newTracks.append(Track(trackData: trackData, fileName: url.lastPathComponent))
+            DispatchQueue.global(qos: .userInteractive).async {
+                do {
+                    let results = try result.get()
+                    for (i, url) in results.enumerated() {
+                        DispatchQueue.main.async {
+                            progress = Double(i)/Double(results.count-1)
                         }
-                        for newTrack in newTracks {
-                            if !sharedTracksStore.tracks.contains(newTrack) {
-                                sharedTracksStore.tracks.append(newTrack)
+                        
+                        if url.startAccessingSecurityScopedResource() {
+                            let data = try Data(contentsOf: url)
+                            url.stopAccessingSecurityScopedResource()
+                            let waypoints = SBPDataToWaypoints(fileData: data)
+                            let decodedWaypoints = decodeWaypoints(waypoints: waypoints)
+                            var newTracks = [Track]()
+                            for trackData in decodedWaypoints {
+                                newTracks.append(Track(trackData: trackData, fileName: url.lastPathComponent))
                             }
+                            for newTrack in newTracks {
+                                if !sharedTracksStore.tracks.contains(newTrack) {
+                                    DispatchQueue.main.async {
+                                        sharedTracksStore.tracks.append(newTrack)
+                                    }
+                                }
+                            }
+                            DispatchQueue.main.async {
+                                sharedTracksStore.tracks.sort()
+                            }
+                            TrackStore.shared.save(completion: {result in
+                                if case .failure(let error) = result {
+                                    print(error.localizedDescription)
+                                }
+                            })
                         }
-                        sharedTracksStore.tracks.sort()
-                        TrackStore.shared.save(completion: {result in
-                            if case .failure(let error) = result {
-                                print(error.localizedDescription)
-                            }
-                        })
                     }
-                }                
-            } catch {
-                print(error)
-                return
+                    DispatchQueue.main.async {
+                        progress = 2.0
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        progress = 2.0
+                    }
+                    print(error)
+                    return
+                }
             }
         })
     }

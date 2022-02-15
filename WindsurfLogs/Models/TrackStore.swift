@@ -23,7 +23,7 @@ class TrackStore: ObservableObject {
     }
     
     func load(completion: @escaping (Result<[Track], Error>)->Void) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             do {
                 DispatchQueue.main.async {
                     self.isLoading = true
