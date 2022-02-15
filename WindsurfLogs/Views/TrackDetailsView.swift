@@ -64,9 +64,9 @@ struct TrackDetailsView: View {
                     // MARK: Distance
                     Label(title: {
                         HStack {
-                            Text(track.getFormattedTotalDistanceKM())
+                            Text(track.totalDistance.getFormattedKM())
                             Spacer()
-                            Text(track.getFormattedTotalDistanceNautic())
+                            Text(track.totalDistance.getFormattedNautic())
                                 .foregroundColor(.secondary)
                                 .padding(.trailing)
                         }

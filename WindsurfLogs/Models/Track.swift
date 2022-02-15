@@ -124,14 +124,4 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         formatter.unitsStyle = .abbreviated
         return formatter.string(from: self.totalDuration) ?? "-"
     }
-    
-    func getFormattedTotalDistanceKM() -> String {
-        let distance = totalDistance * 0.001
-        return String(format: "%.2f km", distance)
-    }
-    
-    func getFormattedTotalDistanceNautic() -> String {
-        let distance = totalDistance * 0.000539957
-        return String(format: "%.2f nm", distance)
-    }
 }

@@ -44,7 +44,7 @@ struct TrackRowView: View {
     
     var distanceTime: some View {
         HStack(spacing: 4) {
-            Text(track.getFormattedTotalDistanceKM())
+            Text(track.totalDistance.getFormattedKM())
             Image(systemName: "minus")
             Text(track.getFormattedDuration())
         }

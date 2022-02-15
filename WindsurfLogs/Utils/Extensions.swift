@@ -88,3 +88,14 @@ public struct CLLocationWrapper: Codable {
     }
 }
 
+extension CLLocationDistance {
+    func getFormattedKM() -> String {
+        let distance = self.self * 0.001
+        return String(format: "%.2f km", distance)
+    }
+    
+    func getFormattedNautic() -> String {
+        let distance = self.self * 0.000539957
+        return String(format: "%.2f nm", distance)
+    }
+}

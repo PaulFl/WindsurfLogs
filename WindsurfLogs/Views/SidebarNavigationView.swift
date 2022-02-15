@@ -29,7 +29,7 @@ struct SidebarNavigationView: View {
                 }
             }
             Section("Stats") {
-                NavigationLink(destination: MapListView(mapRegion: sampleCoordinateRegion)) {
+                NavigationLink(destination: OverallStatsView()) {
                     Label("Overall", systemImage: "number")
                 }
             }

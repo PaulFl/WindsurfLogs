@@ -23,6 +23,13 @@ struct TabNavigationView: View {
             .tabItem {
                 Label("Map", systemImage: "map")
             }
+            
+            NavigationView {
+                OverallStatsView()
+            }
+            .tabItem {
+                Label("Stats", systemImage: "number")
+            }
         }
     }
 }
