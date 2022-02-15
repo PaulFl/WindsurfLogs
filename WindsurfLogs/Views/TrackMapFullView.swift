@@ -10,12 +10,26 @@ import MapKit
 
 struct TrackMapFullView: View {
     let track: Track
+    @State var selectedMapType = MKMapType.standard
+
     
     var body: some View {
         let span = MKCoordinateSpan(latitudeDelta: track.trackSpan.latitudeDelta * 1.2, longitudeDelta: track.trackSpan.longitudeDelta * 1.2)
         let region = MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: span)
-        UIMapView(region: region, interactionEnabled: true, lineCoordinates: track.trackPoints ?? [])
-            .ignoresSafeArea()
+        
+        ZStack {
+            UIMapView(region: region, mapType: selectedMapType, interactionEnabled: true, lineCoordinates: track.trackPoints ?? [])
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                Picker("Map type", selection: $selectedMapType) {
+                    Text("Standard").tag(MKMapType.standard)
+                    Text("Hybrid").tag(MKMapType.hybrid)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.all, 10)
+            }
+        }
     }
 }
 

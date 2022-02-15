@@ -11,25 +11,28 @@ import MapKit
 struct UIMapView: UIViewRepresentable {
     
     let region: MKCoordinateRegion
+    let mapType: MKMapType
     let interactionEnabled: Bool
     let lineCoordinates: [CLLocationCoordinate2D]
     
     // Create the MKMapView using UIKit.
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
+        mapView.mapType = mapType
         mapView.delegate = context.coordinator
         mapView.region = region
         if !interactionEnabled {
-            mapView.isRotateEnabled = false
             mapView.isScrollEnabled = false
         }
+        mapView.isRotateEnabled = false
         let polyline = MKPolyline(coordinates: lineCoordinates, count: lineCoordinates.count)
         mapView.addOverlay(polyline)
         return mapView
     }
     
-    // We don't need to worry about this as the view will never be updated.
-    func updateUIView(_ view: MKMapView, context: Context) {}
+    func updateUIView(_ view: MKMapView, context: Context) {
+        view.mapType = mapType
+    }
     
     // Link it to the coordinator which is defined below.
     func makeCoordinator() -> Coordinator {

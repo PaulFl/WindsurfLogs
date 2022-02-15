@@ -13,7 +13,7 @@ struct TrackMapView: View {
     @Binding var lineCoordinates: [CLLocationCoordinate2D]?
     
     var body: some View {
-        UIMapView(region: mapRegion, interactionEnabled: false, lineCoordinates: lineCoordinates ?? [])
+        UIMapView(region: mapRegion, mapType: .standard, interactionEnabled: false, lineCoordinates: lineCoordinates ?? [])
     }
 }
 
