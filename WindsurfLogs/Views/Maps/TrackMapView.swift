@@ -10,14 +10,15 @@ import MapKit
 
 struct TrackMapView: View {
     @State var mapRegion: MKCoordinateRegion
+    let lineCoordinates: [CLLocationCoordinate2D]
     
     var body: some View {
-        Map(coordinateRegion: $mapRegion, interactionModes: [])
+        UIMapView(region: mapRegion, interactionEnabled: false, lineCoordinates: lineCoordinates)
     }
 }
 
 struct TrackMapView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackMapView(mapRegion: sampleCoordinateRegion)
+        TrackMapView(mapRegion: sampleCoordinateRegion, lineCoordinates: [])
     }
 }

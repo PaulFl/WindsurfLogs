@@ -79,7 +79,7 @@ struct TrackDetailsView: View {
                 // MARK: Map
                 Section("Map") {
                     NavigationLink(destination: EmptyView()) {
-                        TrackMapView(mapRegion: MKCoordinateRegion(center: track.middlePoint.location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+                        TrackMapView(mapRegion: getTrackMapRegion(waypoints: track.trackPoints), lineCoordinates: track.trackPoints)
                             .cornerRadius(4)
                             .frame(minHeight: UIScreen.main.bounds.height / 2)
                     }

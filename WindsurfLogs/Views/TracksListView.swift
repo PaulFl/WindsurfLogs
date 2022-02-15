@@ -22,16 +22,20 @@ struct TracksListView: View {
             }
             .onDelete(perform: delete)
         }
-        .overlay {
-            if TrackStore.shared.isLoading {
-                ProgressView()
-            }
-        }
         .navigationTitle("Tracks")
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {presentImporter = true}) {
-                    Image(systemName: "plus")
+                Button(action: {
+                    if !TrackStore.shared.isLoading {
+                        presentImporter = true
+                    }
+                }) {
+                    if TrackStore.shared.isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.accentColor))
+                    } else {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
@@ -50,10 +54,8 @@ struct TracksListView: View {
                         }
                         for newTrack in newTracks {
                             if !sharedTracksStore.tracks.contains(newTrack) {
-                                print("new found")
                                 sharedTracksStore.tracks.append(newTrack)
                             }
-                            print("already here")
                         }
                         sharedTracksStore.tracks.sort()
                         TrackStore.shared.save(completion: {result in

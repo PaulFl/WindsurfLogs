@@ -24,6 +24,7 @@
 		E49CB01327B6E99C00287F11 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01227B6E99C00287F11 /* SampleData.swift */; };
 		E49CB01527B6EBD000287F11 /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01427B6EBD000287F11 /* Speed.swift */; };
 		E49CB01827B6EE5C00287F11 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49CB01727B6EE5C00287F11 /* MiniMapView.swift */; };
+		E4F0A84927BBA578006C9F52 /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A84827BBA578006C9F52 /* UIMapView.swift */; };
 		E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */; };
 		E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F91A3427BB9A6600FD599A /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		E49CB01427B6EBD000287F11 /* Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speed.swift; sourceTree = "<group>"; };
 		E49CB01727B6EE5C00287F11 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
 		E4A9830627B847BE00A63A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E4F0A84827BBA578006C9F52 /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
 		E4F91A3227BAD74F00FD599A /* MapPinLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinLocation.swift; sourceTree = "<group>"; };
 		E4F91A3427BB9A6600FD599A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,6 +143,7 @@
 		E49CB01627B6EE5000287F11 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				E4F0A84827BBA578006C9F52 /* UIMapView.swift */,
 				E49CB01727B6EE5C00287F11 /* MiniMapView.swift */,
 				E41327AB27BA4B5D001993E9 /* TrackMapView.swift */,
 				E46FDD8E27BAB64B00ED2B47 /* MapListView.swift */,
@@ -221,6 +224,7 @@
 				E49CB01827B6EE5C00287F11 /* MiniMapView.swift in Sources */,
 				E49CB00F27B6E73A00287F11 /* TrackRowView.swift in Sources */,
 				E49CB00127B6E54400287F11 /* ContentView.swift in Sources */,
+				E4F0A84927BBA578006C9F52 /* UIMapView.swift in Sources */,
 				E49CAFFF27B6E54400287F11 /* WindsurfLogsApp.swift in Sources */,
 				E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */,
 				E41327AE27BA4F8D001993E9 /* TrackStore.swift in Sources */,

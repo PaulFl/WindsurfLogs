@@ -64,28 +64,28 @@ public func furthestPointDistanceFromStart(waypoints: [CLLocationWrapper]) -> (d
     return (maxTack, furthestPoint)
 }
 
-public func getTrackMapRegion(waypoints: [CLLocationWrapper]) -> MKCoordinateRegion {
+public func getTrackMapRegion(waypoints: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
     if waypoints.first == nil {
         return MKCoordinateRegion()
     }
     
     let spanFactor = 1.6
     
-    var maxLat = waypoints.first!.location.coordinate.latitude
-    var minLat = waypoints.first!.location.coordinate.latitude
-    var maxLon = waypoints.first!.location.coordinate.longitude
-    var minLon = waypoints.first!.location.coordinate.longitude
+    var maxLat = waypoints.first!.latitude
+    var minLat = waypoints.first!.latitude
+    var maxLon = waypoints.first!.longitude
+    var minLon = waypoints.first!.longitude
     for wp in waypoints {
-        if wp.location.coordinate.latitude > maxLat {
-            maxLat = wp.location.coordinate.latitude
-        } else if wp.location.coordinate.latitude < minLat {
-            minLat = wp.location.coordinate.latitude
+        if wp.latitude > maxLat {
+            maxLat = wp.latitude
+        } else if wp.latitude < minLat {
+            minLat = wp.latitude
         }
         
-        if wp.location.coordinate.longitude > maxLon {
-            maxLon = wp.location.coordinate.longitude
-        } else if wp.location.coordinate.longitude < minLon {
-            minLon = wp.location.coordinate.longitude
+        if wp.longitude > maxLon {
+            maxLon = wp.longitude
+        } else if wp.longitude < minLon {
+            minLon = wp.longitude
         }
     }
     
@@ -98,39 +98,6 @@ public func getTrackMapRegion(waypoints: [CLLocationWrapper]) -> MKCoordinateReg
     return MKCoordinateRegion(center: center, span: span)
 }
 
-//public func miniMapRegion(waypoints: [CLLocationWrapper]) -> MKCoordinateRegion {
-//    if waypoints.first == nil {
-//        return MKCoordinateRegion()
-//    }
-//    
-//    let spanFactor = 8.0
-//    
-//    var maxLat = waypoints.first!.location.coordinate.latitude
-//    var minLat = waypoints.first!.location.coordinate.latitude
-//    var maxLon = waypoints.first!.location.coordinate.longitude
-//    var minLon = waypoints.first!.location.coordinate.longitude
-//    for wp in waypoints {
-//        if wp.location.coordinate.latitude > maxLat {
-//            maxLat = wp.location.coordinate.latitude
-//        } else if wp.location.coordinate.latitude < minLat {
-//            minLat = wp.location.coordinate.latitude
-//        }
-//        
-//        if wp.location.coordinate.longitude > maxLon {
-//            maxLon = wp.location.coordinate.longitude
-//        } else if wp.location.coordinate.longitude < minLon {
-//            minLon = wp.location.coordinate.longitude
-//        }
-//    }
-//    
-//    let middleLat = (minLat + maxLat) / 2
-//    let middleLon = (minLon + maxLon) / 2
-//    
-//    let center = CLLocationCoordinate2D(latitude: middleLat, longitude: middleLon)
-//    let span = MKCoordinateSpan(latitudeDelta: spanFactor, longitudeDelta: spanFactor)
-//    
-//    return MKCoordinateRegion(center: center, span: span)
-//}
 
 public func middlePointLocation(trackPoints: [CLLocationWrapper]) -> CLLocationWrapper {
     if trackPoints.first?.location == nil {

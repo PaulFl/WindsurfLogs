@@ -52,7 +52,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(totalDuration, forKey: .totalDuration)
         try container.encode(placemarkName, forKey: .placemarkName)
         try container.encode(middlePoint, forKey: .middlePoint)
-        try container.encode(middlePoint, forKey: .trackPoints)
+        try container.encode(trackPoints, forKey: .trackPoints)
     }
     
     init(trackData: [CLLocationWrapper]) {
@@ -70,7 +70,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
 //        let (_, furthestPointFromStart) = furthestPointDistanceFromStart(waypoints: trackData)
         
         self.middlePoint = middlePointLocation(trackPoints: trackData)
-        self.trackPoints = trackData.compactMap({$0.location.coordinate})
+        self.trackPoints = trackData.map{$0.location.coordinate}
         
         
         Task {
@@ -96,7 +96,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     }
     
     static func < (lhs: Track, rhs: Track) -> Bool {
-        return lhs.startDate < rhs.startDate
+        return lhs.startDate > rhs.startDate
     }
     
     func getFormattedDuration() -> String {

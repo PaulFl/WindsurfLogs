@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 extension CLLocationCoordinate2D: Codable {
     public func encode(to encoder: Encoder) throws {
@@ -22,3 +23,4 @@ extension CLLocationCoordinate2D: Codable {
         self.init(latitude: latitude, longitude: longitude)
     }
 }
+
