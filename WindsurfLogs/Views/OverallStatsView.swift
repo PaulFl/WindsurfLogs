@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct OverallStatsView: View {
+    @State var showingDeleteAlert = false
+    @ObservedObject var sharedTracksStore = TrackStore.shared
+    
     var body: some View {
         List {
             Section("All time") {
                 Label(title: {
-                    let maxSpeed = getOverallMaxSpeed()
+                    let maxSpeed = sharedTracksStore.getOverallMaxSpeed()
                     HStack {
                         Text(maxSpeed.getFormattedSpeedKPH())
                         Spacer()
@@ -24,7 +27,7 @@ struct OverallStatsView: View {
                 })
                 
                 Label(title: {
-                    let totalDistance = getOverallDistance()
+                    let totalDistance = sharedTracksStore.getOverallDistance()
                     HStack {
                         Text(totalDistance.getFormattedKM())
                         Spacer()
@@ -36,13 +39,25 @@ struct OverallStatsView: View {
                 })
                 
                 Label(title: {
-                    Text("\(TrackStore.shared.tracks.count) tracks")
+                    Text("\(sharedTracksStore.tracks.count) tracks")
                 }, icon: {
                     Image(systemName: "sum")
                 })
             }
+            
+            Section("Reset") {
+                Button("Delete all tracks", role: .destructive, action: {
+                    showingDeleteAlert = true
+                })
+            }
         }
         .navigationTitle("Stats")
+        .alert("Delete all tracks ?", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive, action: {
+                TrackStore.shared.tracks.removeAll()
+                TrackStore.shared.save(completion: {result in})
+            })
+        }
     }
 }
 

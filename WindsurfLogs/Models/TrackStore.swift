@@ -67,6 +67,20 @@ class TrackStore: ObservableObject {
             }
         }
     }
+    
+    func getOverallDistance() -> CLLocationDistance {
+        var distance = CLLocationDistance(0)
+        for track in tracks {
+            distance += track.totalDistance
+        }
+        return distance
+    }
+
+    func getOverallMaxSpeed() -> Speed {
+        let speeds = tracks.map {$0.maxSpeed}
+        return speeds.max() ?? Speed(speedMS: 0)
+    }
+
 }
 
 func saveTrackData(startDate: Date, trackData: [CLLocationCoordinate2D]) {

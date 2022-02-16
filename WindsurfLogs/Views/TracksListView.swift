@@ -66,20 +66,21 @@ struct TracksListView: View {
                             for newTrack in newTracks {
                                 if !sharedTracksStore.tracks.contains(newTrack) {
                                     DispatchQueue.main.async {
-                                        sharedTracksStore.tracks.append(newTrack)
+                                        Task {
+                                            await newTrack.setPlacemark()
+                                            sharedTracksStore.tracks.append(newTrack)
+                                            sharedTracksStore.tracks.sort()
+                                        }
                                     }
                                 }
                             }
-                            DispatchQueue.main.async {
-                                sharedTracksStore.tracks.sort()
-                            }
-                            TrackStore.shared.save(completion: {result in
-                                if case .failure(let error) = result {
-                                    print(error.localizedDescription)
-                                }
-                            })
                         }
                     }
+                    sharedTracksStore.save(completion: {result in
+                        if case .failure(let error) = result {
+                            print(error.localizedDescription)
+                        }
+                    })
                     DispatchQueue.main.async {
                         progress = 2.0
                     }

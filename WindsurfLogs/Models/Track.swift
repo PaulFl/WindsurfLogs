@@ -92,11 +92,20 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         
         self.fileName = fileName
         
-        
-        
-        Task {
-            let geocoder = CLGeocoder()
-            let placemarks = try await geocoder.reverseGeocodeLocation(self.startPoint.location)
+        saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
+    }
+    
+    static func == (lhs: Track, rhs: Track) -> Bool {
+        return lhs.startDate == rhs.startDate
+    }
+    
+    static func < (lhs: Track, rhs: Track) -> Bool {
+        return lhs.startDate > rhs.startDate
+    }
+    
+    func setPlacemark() async {
+        let geocoder = CLGeocoder()
+        if let placemarks = try? await geocoder.reverseGeocodeLocation(self.startPoint.location) {
             if let placemark = placemarks.first {
                 if placemark.inlandWater != nil {
                     self.placemarkName = placemark.inlandWater
@@ -108,23 +117,14 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
                     self.placemarkName = placemark.ocean
                 }
             }
-            let placemarksMiddle = try await geocoder.reverseGeocodeLocation(self.middlePoint.location)
+        }
+        if let placemarksMiddle = try? await geocoder.reverseGeocodeLocation(self.middlePoint.location) {
             if let placemarkMiddle = placemarksMiddle.first {
                 if placemarkMiddle.inlandWater != nil {
                     self.placemarkName = placemarkMiddle.inlandWater
                 }
             }
-            TrackStore.shared.save(completion: {result in})
         }
-        saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
-    }
-    
-    static func == (lhs: Track, rhs: Track) -> Bool {
-        return lhs.startDate == rhs.startDate
-    }
-    
-    static func < (lhs: Track, rhs: Track) -> Bool {
-        return lhs.startDate > rhs.startDate
     }
     
     func getFormattedDuration() -> String {
