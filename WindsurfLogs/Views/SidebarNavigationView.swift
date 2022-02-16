@@ -24,11 +24,11 @@ struct SidebarNavigationView: View {
                 NavigationLink(destination: TracksListView()) {
                     Label("List", systemImage: "list.bullet")
                 }
-//                .isDetailLink(false)
+                .isDetailLink(false)
                 NavigationLink(destination: MapListView(mapRegion: sampleCoordinateRegion)) {
                     Label("Map", systemImage: "map")
                 }
-//                .isDetailLink(false)
+                .isDetailLink(false)
             }
             Section("Stats") {
                 NavigationLink(destination: OverallStatsView()) {
@@ -44,7 +44,7 @@ extension UISplitViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         if style == .tripleColumn {
-            preferredSplitBehavior = .automatic
+            preferredSplitBehavior = .tile
 //        preferredPrimaryColumnWidthFraction = 0.5
 //        preferredSupplementaryColumnWidthFraction = 0.5
         preferredDisplayMode = .twoDisplaceSecondary

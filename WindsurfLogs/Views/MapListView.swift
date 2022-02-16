@@ -18,11 +18,12 @@ struct MapListView: View {
             MapAnnotation(coordinate: track.middlePoint.location.coordinate, anchorPoint: CGPoint(x: 0.5, y: 1)) {
                 NavigationLink(destination: TrackDetailsView(track: $track)) {
                     Image(systemName: "mappin.circle.fill")
+                        .font(.title2)
                         .foregroundColor(.accentColor)
                 }
             }
         }
-            .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
