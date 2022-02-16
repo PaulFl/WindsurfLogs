@@ -106,7 +106,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         if let fileNameWithoutExtension = fileName?.trimmingCharacters(in: .init(charactersIn: ".sbp")).trimmingCharacters(in: .init(charactersIn: ".SBP")) {
             var boards = [String]()
             var sails = [String]()
-
+            
             for str in fileNameWithoutExtension.split(separator: "_") {
                 if str.contains("L") && CharacterSet.decimalDigits.contains(str.unicodeScalars.first!) {
                     boards.append(String(str))
@@ -120,10 +120,6 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
             self.boards = []
             self.sails = []
         }
-
-
-        
-        
         saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
     }
     
