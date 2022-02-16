@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		E408FBFB27BCF5BC00BDA5DE /* SplitSpeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitSpeedsView.swift; sourceTree = "<group>"; };
+		E408FBFD27BD37BB00BDA5DE /* Tests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E41327AB27BA4B5D001993E9 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		E41327AD27BA4F8D001993E9 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
 		E41327B127BA551E001993E9 /* SBPProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPProcessing.swift; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 			children = (
 				E49CAFFD27B6E54400287F11 /* WindsurfLogs */,
 				E49CB01227B6E99C00287F11 /* SampleData.swift */,
+				E408FBFD27BD37BB00BDA5DE /* Tests.playground */,
 				E41327B927BAAABC001993E9 /* .gitignore */,
 				E49CAFFC27B6E54400287F11 /* Products */,
 			);

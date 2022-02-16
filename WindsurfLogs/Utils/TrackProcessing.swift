@@ -163,12 +163,12 @@ func computeSplitSpeeds(trackPoints: [CLLocationWrapper], splitDistances: [CLLoc
         splitSegments.reverse()
         
         // MARK: Select the fastest 3 non overlapping
-        var selectedSplitSegments = [splitSegments.first]
+        var selectedSplitSegments = [splitSegments.first ?? SplitSegment(startIndex: 0, endIndex: 0, averageSpeed: 0, totalDistance: 0, totalDuration: 0)]
         
         for segment in splitSegments {
             var isSegmentOverlapping = false
             for alreadySelectedSegment in selectedSplitSegments {
-                let range = alreadySelectedSegment!.startIndex...alreadySelectedSegment!.endIndex
+                let range = alreadySelectedSegment.startIndex...alreadySelectedSegment.endIndex
                 if range.contains(segment.startIndex) || range.contains(segment.endIndex) {
                     isSegmentOverlapping = true
                     break
@@ -185,7 +185,7 @@ func computeSplitSpeeds(trackPoints: [CLLocationWrapper], splitDistances: [CLLoc
         // MARK: Build SegmentSpeed array from selected top segments
         var segmentSpeedsForDistance = [SegmentSpeed]()
         for seg in selectedSplitSegments {
-            segmentSpeedsForDistance.append(SegmentSpeed(distance: seg!.totalDistance, duration: seg!.totalDuration))
+            segmentSpeedsForDistance.append(SegmentSpeed(distance: seg.totalDistance, duration: seg.totalDuration))
         }
         splitSpeeds[splitDistance] = segmentSpeedsForDistance
     }

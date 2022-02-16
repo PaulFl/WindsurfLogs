@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct TrackMapFullView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     let track: Track
     @State var selectedMapType = MKMapType.standard
 
@@ -19,7 +21,7 @@ struct TrackMapFullView: View {
         
         ZStack {
             UIMapView(region: region, mapType: selectedMapType, interactionEnabled: true, lineCoordinates: track.trackPoints ?? [])
-                .edgesIgnoringSafeArea(.top)
+                .edgesIgnoringSafeArea(horizontalSizeClass == .compact ? .top : .all)
             VStack {
                 Spacer()
                 Picker("Map type", selection: $selectedMapType) {

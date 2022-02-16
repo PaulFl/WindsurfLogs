@@ -48,13 +48,21 @@ struct TrackDetailsView: View {
                     Label(title: {
                         Text(track.getFormattedDuration())
                     }, icon: {
-                        Image(systemName: "hourglass")
+                        Image(systemName: "stopwatch")
                             .foregroundColor(.accentColor)
                     })
                 }
                 
                 // MARK: Speed & Distance
                 Section("Speed & Distance") {
+                    // MARK: Sail and board
+                    if !track.boards.isEmpty || !track.sails.isEmpty {
+                        Label(title: {
+                            Text("\(track.boards.joined(separator: " - ")) (\(track.sails.joined(separator: " - ")))")
+                        }, icon: {
+                            Image(systemName: "wand.and.rays")
+                        })
+                    }
                     // MARK: Max speed
                     NavigationLink(destination: SplitSpeedsView(track: $track)) {
                         Label(title: {

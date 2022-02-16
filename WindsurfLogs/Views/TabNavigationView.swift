@@ -28,7 +28,7 @@ struct TabNavigationView: View {
                 OverallStatsView()
             }
             .tabItem {
-                Label("Stats", systemImage: "number")
+                Label("Stats", systemImage: "chart.xyaxis.line")
             }
         }
     }

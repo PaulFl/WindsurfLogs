@@ -27,12 +27,15 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     let splitSpeeds: [CLLocationDistance: [SegmentSpeed]]?
     
+    let boards: [String]
+    let sails: [String]
+    
     @Published var placemarkName: String?
     @Published var trackPoints: [CLLocationCoordinate2D]?
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart, splitSpeeds
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart, splitSpeeds, boards, sails
     }
     
     required init(from decoder: Decoder) throws {
@@ -50,6 +53,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         fileName = try container.decode(String?.self, forKey: .fileName)
         maxDistanceFromStart = try container.decode(CLLocationDistance.self, forKey: .maxDistanceFromStart)
         splitSpeeds = try container.decode([CLLocationDistance: [SegmentSpeed]]?.self, forKey: .splitSpeeds)
+        boards = try container.decode([String].self, forKey: .boards)
+        sails = try container.decode([String].self, forKey: .sails)
         trackPoints = nil
     }
     
@@ -69,6 +74,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(trackPoints, forKey: .trackPoints)
         try container.encode(maxDistanceFromStart, forKey: .maxDistanceFromStart)
         try container.encode(splitSpeeds, forKey: .splitSpeeds)
+        try container.encode(boards, forKey: .boards)
+        try container.encode(sails, forKey: .sails)
     }
     
     init(trackData: [CLLocationWrapper], fileName: String?) {
@@ -95,6 +102,27 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         self.fileName = fileName
         
         self.splitSpeeds = computeSplitSpeeds(trackPoints: trackData, splitDistances: [25, 50, 100, 200, 500])
+        
+        if let fileNameWithoutExtension = fileName?.trimmingCharacters(in: .init(charactersIn: ".sbp")).trimmingCharacters(in: .init(charactersIn: ".SBP")) {
+            var boards = [String]()
+            var sails = [String]()
+
+            for str in fileNameWithoutExtension.split(separator: "_") {
+                if str.contains("L") && CharacterSet.decimalDigits.contains(str.unicodeScalars.first!) {
+                    boards.append(String(str))
+                } else if str.contains(".") {
+                    sails.append(String(str))
+                }
+            }
+            self.boards = boards
+            self.sails = sails
+        } else {
+            self.boards = []
+            self.sails = []
+        }
+
+
+        
         
         saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
     }

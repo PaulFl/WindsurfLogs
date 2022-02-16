@@ -54,6 +54,7 @@ struct OverallStatsView: View {
                 })
             }
             
+            
             Section("Reset") {
                 Button("Delete all tracks", role: .destructive, action: {
                     showingDeleteAlert = true
