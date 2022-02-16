@@ -94,7 +94,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         
         self.fileName = fileName
         
-        self.splitSpeeds = computeSplitSpeeds(trackPoints: trackData, splitDistances: [50, 100, 200, 500])
+        self.splitSpeeds = computeSplitSpeeds(trackPoints: trackData, splitDistances: [25, 50, 100, 200, 500])
         
         saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
     }

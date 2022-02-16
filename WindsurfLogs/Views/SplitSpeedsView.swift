@@ -31,7 +31,7 @@ struct SplitSpeedsView: View {
                                             .foregroundColor(.secondary)
                                     }
                                     HStack {
-                                        Text("\(String(segmentSpeed.distance)) meters in \(String(segmentSpeed.duration)) s")
+                                        Text("\(String(format: "%.2f", segmentSpeed.distance)) meters in \(String(format: "%.2f", segmentSpeed.duration)) s")
                                             .font(.subheadline)
                                             .foregroundColor(.secondary)
                                         Spacer()

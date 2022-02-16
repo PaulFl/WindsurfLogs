@@ -131,8 +131,80 @@ public func middlePointLocation(trackPoints: [CLLocationWrapper]) -> CLLocationW
 }
 
 func computeSplitSpeeds(trackPoints: [CLLocationWrapper], splitDistances: [CLLocationDistance]) -> [CLLocationDistance: [SegmentSpeed]] {
-    let splitSpeeds = [CLLocationDistance: [SegmentSpeed]]()
+    var splitSpeeds = [CLLocationDistance: [SegmentSpeed]]()
     
+    var pointToPointDistance = [CLLocationDistance]()
+    
+    for i in 1..<trackPoints.count {
+        pointToPointDistance.append(trackPoints[i].location.distance(from: trackPoints[i-1].location))
+    }
+    
+    // MARK: For each split distance to calcul
+    for splitDistance in splitDistances {
+        // MARK: Get all segments of specified distance
+        var splitSegments = [SplitSegment]()
+        
+        var currentSegment = SplitSegment(startIndex: 0, endIndex: 0, averageSpeed: 0, totalDistance: 0, totalDuration: 0)
+        
+        for i in 1..<trackPoints.count {
+            currentSegment.endIndex = i
+            currentSegment.totalDistance += pointToPointDistance[i-1]
+            while currentSegment.totalDistance >= splitDistance {
+                currentSegment.totalDuration = trackPoints[currentSegment.endIndex].location.timestamp.timeIntervalSince(trackPoints[currentSegment.startIndex].location.timestamp)
+                currentSegment.updateAverageSpeed()
+                splitSegments.append(currentSegment)
+                currentSegment.startIndex += 1
+                currentSegment.totalDistance -= pointToPointDistance[currentSegment.startIndex]
+            }
+            
+        }
+        
+        splitSegments.sort()
+        splitSegments.reverse()
+        
+        // MARK: Select the fastest 3 non overlapping
+        var selectedSplitSegments = [splitSegments.first]
+        
+        for segment in splitSegments {
+            var isSegmentOverlapping = false
+            for alreadySelectedSegment in selectedSplitSegments {
+                let range = alreadySelectedSegment!.startIndex...alreadySelectedSegment!.endIndex
+                if range.contains(segment.startIndex) || range.contains(segment.endIndex) {
+                    isSegmentOverlapping = true
+                    break
+                }
+            }
+            if !isSegmentOverlapping {
+                selectedSplitSegments.append(segment)
+            }
+            if selectedSplitSegments.count >= 3 {
+                break
+            }
+        }
+        
+        // MARK: Build SegmentSpeed array from selected top segments
+        var segmentSpeedsForDistance = [SegmentSpeed]()
+        for seg in selectedSplitSegments {
+            segmentSpeedsForDistance.append(SegmentSpeed(distance: seg!.totalDistance, duration: seg!.totalDuration))
+        }
+        splitSpeeds[splitDistance] = segmentSpeedsForDistance
+    }
     
     return splitSpeeds
+}
+
+struct SplitSegment: Comparable {
+    var startIndex: Int
+    var endIndex: Int
+    var averageSpeed: CLLocationSpeed
+    var totalDistance: CLLocationDistance
+    var totalDuration: TimeInterval
+    
+    static func < (lhs: SplitSegment, rhs: SplitSegment) -> Bool {
+        return lhs.averageSpeed < rhs.averageSpeed
+    }
+    
+    mutating func updateAverageSpeed() {
+        averageSpeed = totalDistance / totalDuration
+    }
 }
