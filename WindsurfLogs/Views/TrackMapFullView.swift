@@ -19,7 +19,7 @@ struct TrackMapFullView: View {
         
         ZStack {
             UIMapView(region: region, mapType: selectedMapType, interactionEnabled: true, lineCoordinates: track.trackPoints ?? [])
-                .ignoresSafeArea()
+                .edgesIgnoringSafeArea(.top)
             VStack {
                 Spacer()
                 Picker("Map type", selection: $selectedMapType) {

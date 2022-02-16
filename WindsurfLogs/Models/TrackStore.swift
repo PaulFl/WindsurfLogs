@@ -76,9 +76,19 @@ class TrackStore: ObservableObject {
         return distance
     }
 
-    func getOverallMaxSpeed() -> Speed {
-        let speeds = tracks.map {$0.maxSpeed}
-        return speeds.max() ?? Speed(speedMS: 0)
+    func getOverallMaxSpeedTrack() -> Track? {
+        if tracks.isEmpty {
+            return nil
+        }
+        var maxSpeed = tracks.first!.maxSpeed
+        var maxIndex = 0
+        for (i, track) in tracks.enumerated() {
+            if track.maxSpeed > maxSpeed {
+                maxSpeed = track.maxSpeed
+                maxIndex = i
+            }
+        }
+        return tracks[maxIndex]
     }
 
 }

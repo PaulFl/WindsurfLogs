@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Speed: Codable, Comparable {
     let speedMS: Double
@@ -28,5 +29,22 @@ struct Speed: Codable, Comparable {
     
     func getFormattedSpeedKTS() -> String {
         return String(format: "%.2f kts", self.speedKTS)
+    }
+}
+
+struct SegmentSpeed: Codable, Comparable, Identifiable {
+    var id = UUID()
+    let speed: Speed
+    let distance: CLLocationDistance
+    let duration: TimeInterval
+    
+    init(distance: CLLocationDistance, duration: TimeInterval) {
+        self.distance = distance
+        self.duration = duration
+        self.speed = Speed(speedMS: distance / duration)
+    }
+    
+    static func < (lhs: SegmentSpeed, rhs: SegmentSpeed) -> Bool {
+        return lhs.speed < rhs.speed
     }
 }

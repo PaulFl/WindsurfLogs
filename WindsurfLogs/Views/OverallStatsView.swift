@@ -15,12 +15,21 @@ struct OverallStatsView: View {
         List {
             Section("All time") {
                 Label(title: {
-                    let maxSpeed = sharedTracksStore.getOverallMaxSpeed()
-                    HStack {
-                        Text(maxSpeed.getFormattedSpeedKPH())
-                        Spacer()
-                        Text(maxSpeed.getFormattedSpeedKTS())
-                            .foregroundColor(.secondary)
+                    let maxSpeedTrack = sharedTracksStore.getOverallMaxSpeedTrack()
+                    VStack(spacing: 10) {
+                        HStack {
+                            Text(maxSpeedTrack?.maxSpeed.getFormattedSpeedKPH() ?? Speed(speedMS: 0).getFormattedSpeedKPH())
+                            Spacer()
+                            Text(maxSpeedTrack?.maxSpeed.getFormattedSpeedKTS() ?? Speed(speedMS: 0).getFormattedSpeedKTS())
+                                .foregroundColor(.secondary)
+                        }
+                        HStack {
+                            Text(maxSpeedTrack?.placemarkName ?? "")
+                            Spacer()
+                            Text(maxSpeedTrack?.startDate.formatted(date: .numeric, time: .omitted) ?? "")
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                 }, icon: {
                     Image(systemName: "speedometer")

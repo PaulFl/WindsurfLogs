@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E408FBFC27BCF5BC00BDA5DE /* SplitSpeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E408FBFB27BCF5BC00BDA5DE /* SplitSpeedsView.swift */; };
 		E41327AC27BA4B5D001993E9 /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327AB27BA4B5D001993E9 /* TrackMapView.swift */; };
 		E41327AE27BA4F8D001993E9 /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327AD27BA4F8D001993E9 /* TrackStore.swift */; };
 		E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41327B127BA551E001993E9 /* SBPProcessing.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E408FBFB27BCF5BC00BDA5DE /* SplitSpeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitSpeedsView.swift; sourceTree = "<group>"; };
 		E41327AB27BA4B5D001993E9 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		E41327AD27BA4F8D001993E9 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
 		E41327B127BA551E001993E9 /* SBPProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPProcessing.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				E46FDD8E27BAB64B00ED2B47 /* MapListView.swift */,
 				E4F0A85127BBE83E006C9F52 /* OverallStatsView.swift */,
 				E49134FF27B9B812007C5FA5 /* TrackDetailsView.swift */,
+				E408FBFB27BCF5BC00BDA5DE /* SplitSpeedsView.swift */,
 				E4F0A84A27BBB415006C9F52 /* TrackMapFullView.swift */,
 				E49CB00E27B6E73A00287F11 /* TrackRowView.swift */,
 				E49CB01627B6EE5000287F11 /* Maps */,
@@ -253,6 +256,7 @@
 				E41327B227BA551E001993E9 /* SBPProcessing.swift in Sources */,
 				E41327B827BA7026001993E9 /* TrackProcessing.swift in Sources */,
 				E4F91A3327BAD74F00FD599A /* MapPinLocation.swift in Sources */,
+				E408FBFC27BCF5BC00BDA5DE /* SplitSpeedsView.swift in Sources */,
 				E4F91A3527BB9A6600FD599A /* Extensions.swift in Sources */,
 				E491350027B9B812007C5FA5 /* TrackDetailsView.swift in Sources */,
 				E4F0A84B27BBB415006C9F52 /* TrackMapFullView.swift in Sources */,

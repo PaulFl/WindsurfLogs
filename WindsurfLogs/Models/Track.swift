@@ -11,28 +11,28 @@ import MapKit
 
 
 class Track: Codable, Comparable, ObservableObject, Identifiable {
+    let fileName: String?
+    
     let startDate: Date
     let endDate: Date
     
-    let fileName: String?
-    
     let maxSpeed: Speed
+    let maxDistanceFromStart: CLLocationDistance
     let totalDistance: CLLocationDistance
     let totalDuration: TimeInterval
-    
-    let maxDistanceFromStart: CLLocationDistance
-    
-    @Published var placemarkName: String?
     
     let startPoint: CLLocationWrapper
     let middlePoint: CLLocationWrapper
     let trackSpan: MKCoordinateSpan
     
+    let splitSpeeds: [CLLocationDistance: [SegmentSpeed]]?
+    
+    @Published var placemarkName: String?
     @Published var trackPoints: [CLLocationCoordinate2D]?
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart, splitSpeeds
     }
     
     required init(from decoder: Decoder) throws {
@@ -49,6 +49,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         trackSpan = try container.decode(MKCoordinateSpan.self, forKey: .trackSpan)
         fileName = try container.decode(String?.self, forKey: .fileName)
         maxDistanceFromStart = try container.decode(CLLocationDistance.self, forKey: .maxDistanceFromStart)
+        splitSpeeds = try container.decode([CLLocationDistance: [SegmentSpeed]]?.self, forKey: .splitSpeeds)
         trackPoints = nil
     }
     
@@ -67,6 +68,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(fileName, forKey: .fileName)
         try container.encode(trackPoints, forKey: .trackPoints)
         try container.encode(maxDistanceFromStart, forKey: .maxDistanceFromStart)
+        try container.encode(splitSpeeds, forKey: .splitSpeeds)
     }
     
     init(trackData: [CLLocationWrapper], fileName: String?) {
@@ -91,6 +93,8 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         self.trackSpan = trackRegion.span
         
         self.fileName = fileName
+        
+        self.splitSpeeds = computeSplitSpeeds(trackPoints: trackData, splitDistances: [50, 100, 200, 500])
         
         saveTrackData(startDate: self.startPoint.location.timestamp, trackData: self.trackPoints ?? [])
     }

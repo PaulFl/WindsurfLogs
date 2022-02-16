@@ -23,3 +23,8 @@ let sampleCoordinateRegion = MKCoordinateRegion(
 )
 
 let sampleTrackStore = [sampleTrack1, sampleTrack1]
+
+let sampleSplitSpeeds = [
+    CLLocationDistance(500): [SegmentSpeed(distance: 501, duration: 10.4), SegmentSpeed(distance: 504, duration: 12)],
+    CLLocationDistance(200): [SegmentSpeed(distance: 201, duration: 5), SegmentSpeed(distance: 205, duration: 6.2)]
+]

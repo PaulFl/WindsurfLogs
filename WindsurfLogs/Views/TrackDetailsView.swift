@@ -56,7 +56,7 @@ struct TrackDetailsView: View {
                 // MARK: Speed & Distance
                 Section("Speed & Distance") {
                     // MARK: Max speed
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: SplitSpeedsView(track: $track)) {
                         Label(title: {
                             HStack(spacing: 0) {
                                 Text(track.maxSpeed.getFormattedSpeedKPH())

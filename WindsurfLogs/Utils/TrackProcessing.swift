@@ -129,3 +129,10 @@ public func middlePointLocation(trackPoints: [CLLocationWrapper]) -> CLLocationW
     let center = CLLocationCoordinate2D(latitude: middleLat, longitude: middleLon)
     return CLLocationWrapper(location: CLLocation(latitude: center.latitude, longitude: center.longitude))
 }
+
+func computeSplitSpeeds(trackPoints: [CLLocationWrapper], splitDistances: [CLLocationDistance]) -> [CLLocationDistance: [SegmentSpeed]] {
+    let splitSpeeds = [CLLocationDistance: [SegmentSpeed]]()
+    
+    
+    return splitSpeeds
+}
