@@ -35,7 +35,7 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
     
     
     enum CodingKeys: CodingKey {
-        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, trackPoints, maxDistanceFromStart, splitSpeeds, boards, sails
+        case startDate, endDate, maxSpeed, totalDistance, totalDuration, placemarkName, middlePoint, startPoint, trackSpan, fileName, maxDistanceFromStart, splitSpeeds, boards, sails
     }
     
     required init(from decoder: Decoder) throws {
@@ -71,7 +71,6 @@ class Track: Codable, Comparable, ObservableObject, Identifiable {
         try container.encode(middlePoint, forKey: .middlePoint)
         try container.encode(trackSpan, forKey: .trackSpan)
         try container.encode(fileName, forKey: .fileName)
-        try container.encode(trackPoints, forKey: .trackPoints)
         try container.encode(maxDistanceFromStart, forKey: .maxDistanceFromStart)
         try container.encode(splitSpeeds, forKey: .splitSpeeds)
         try container.encode(boards, forKey: .boards)

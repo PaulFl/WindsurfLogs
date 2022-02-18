@@ -52,7 +52,7 @@ class TrackStore: ObservableObject {
     }
     
     func save(completion: @escaping (Result<Int, Error>)->Void) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             do {
                 let data = try JSONEncoder().encode(self.tracks)
                 let outfile = try self.fileURL()

@@ -70,17 +70,17 @@ struct TracksListView: View {
                                             await newTrack.setPlacemark()
                                             sharedTracksStore.tracks.append(newTrack)
                                             sharedTracksStore.tracks.sort()
+                                            sharedTracksStore.save(completion: {result in
+                                                if case .failure(let error) = result {
+                                                    print(error.localizedDescription)
+                                                }
+                                            })
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    sharedTracksStore.save(completion: {result in
-                        if case .failure(let error) = result {
-                            print(error.localizedDescription)
-                        }
-                    })
                     DispatchQueue.main.async {
                         progress = 2.0
                     }
